@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build && cpx './backend/data/**/*' './dist/frontend/data/'",
+    "build": "ng build && copyfiles '../backend/data/**/*' 'dist/frontend/browser/data'",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -35,7 +35,7 @@
     "@angular/compiler-cli": "^18.2.0",
     "@angular/localize": "^18.2.0",
     "@types/jasmine": "~5.1.0",
-    "cpx": "^1.5.0",
+    "copyfiles": "^2.4.1",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

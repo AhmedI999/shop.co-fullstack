@@ -3,10 +3,9 @@ const fs = require('node:fs/promises');
 export async function handler(event, context) {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    const path = require('path');
-    const filePath = path.join(__dirname, '..', '..', 'dist', 'frontend', 'data', 'products.json');
+    const fileContent = await fs.readFile('./backend/data/products.json');
 
-    const productData = JSON.parse(filePath);
+    const productData = JSON.parse(fileContent);
     if (!productData) {console.log('Data not found!');}
     return {
         statusCode: 200,
