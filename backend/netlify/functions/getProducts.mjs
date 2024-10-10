@@ -23,7 +23,7 @@ export async function handler(event, context) {
     } catch (error) {
         let taskDirContents;
         try {
-            taskDirContents = await fs.readdir('/var/task/backend/netlify/functions/data', { withFileTypes: true });
+            taskDirContents = await fs.readdir('/var/task/backend/netlify/functions/', { withFileTypes: true });
         } catch (dirError) {
             taskDirContents = `Error reading /var/task: ${dirError.message}`;
         }
