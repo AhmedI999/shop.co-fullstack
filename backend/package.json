@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "install": "npm install",
     "start": "node app.js"
   },
   "keywords": [],
