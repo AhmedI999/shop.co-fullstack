@@ -1,9 +1,10 @@
 const fs = require('node:fs/promises');
+import { API_PRODUCTS_FILE_LOCATION } from '../../../frontend/src/app/app.apiRoutes.js'
 
 export async function handler(event, context) {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    const filePath = '/var/task/backend/data/products.json';
+    const filePath = API_PRODUCTS_FILE_LOCATION;
 
 
     try {
