@@ -1,6 +1,6 @@
 const fs = require('node:fs/promises');
 const path = require('path');
-/*
+
 export async function handler(event, context) {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
@@ -23,7 +23,7 @@ export async function handler(event, context) {
     } catch (error) {
         let taskDirContents;
         try {
-            taskDirContents = await fs.readdir('/var/task/backend/netlify/functions/', { withFileTypes: true });
+            taskDirContents = await fs.readdir('/var/task/', { withFileTypes: true });
         } catch (dirError) {
             taskDirContents = `Error reading /var/task: ${dirError.message}`;
         }
@@ -51,13 +51,13 @@ export async function handler(event, context) {
         };
     }
 }
-*/
 
+/*
 export async function handler(event, context) {
     try {
         // Construct the path to the bundled file
-        const filePath = path.join(__dirname, 'data', 'products.json');
-        const fileContent = await fs.readFile(filePath);
+        // const filePath = path.join(__dirname, 'data', 'products.json');
+        const fileContent = await fs.readFile('../');
         const productData = JSON.parse(fileContent);
 
         return {
@@ -84,3 +84,4 @@ export async function handler(event, context) {
         };
     }
 }
+*/
