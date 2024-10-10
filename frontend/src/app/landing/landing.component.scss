@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media(max-width: 75em) {
+  .navbar-nav {
+    font-size: 1.6rem;
+  }
+}
+

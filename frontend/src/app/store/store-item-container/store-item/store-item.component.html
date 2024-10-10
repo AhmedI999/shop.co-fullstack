@@ -1,0 +1,40 @@
+<div class="d-flex flex-column">
+  <!-- Image Section -->
+  <img [src]="'http://localhost:3000/' + product().image.src" [alt]="product().image.alt" class="img-fluid rounded shadow" />
+  <!-- Details Section -->
+  <div class="details">
+    <h3 class="mb-3">{{ product().details.title }}</h3>
+
+    <!-- Rating Section -->
+    <p class="rating">
+      <span class="badge bg-warning text-dark">
+        {{ product().rating }} <i class="bi bi-star-fill"></i>
+      </span>
+    </p>
+
+    <!-- Price and Description -->
+    <div class="price-quantity">
+      <h2 class="price text-success">$ {{ product().details.price }}</h2>
+      <p class="description mt-2">{{ product().details.description }}</p>
+    </div>
+
+    <!-- Available Colors Section -->
+    <div class="colors mt-3">
+      <h5>Available Colors:</h5>
+      <div class="d-flex justify-content-center">
+        @for (color of product().details.colors; track color[0]) {
+          <div class="color-box me-2"
+               [style.background-color]="color"
+               style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ccc;"></div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--@for (color of product().details.colors; track color[0]) {
+          <div class="color-box me-2"
+               [style.background-color]="color"
+               style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ccc;"></div>
+        }-->

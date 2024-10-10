@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg bg-white mt-3">
+  <div class="container-fluid py-4">
+    <div class="container d-flex justify-content-between justify-content-sm-start justify-content-lg-between">
+      @if (isLandingPageActive()) {
+        <button class="navbar-toggler border-0"
+                type="button"
+                (click)="onMenuClicked()"
+                #menuBtnEl
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon" style="font-size: 1.6rem"></span>
+        </button>
+      }
+      <a class="navbar-brand d-flex align-items-center fw-bolder ms-3 ms-md-0" routerLink="/">SHOP.CO</a>
+
+      <ng-content />
+
+      <form class="search-form d-none d-sm-flex ms-auto ms-lg-0" role="search" >
+        <input
+               class="search-input form-control fs-4 ms-auto me-2 py-2 px-5 pe-3 rounded-pill"
+               type="search"
+               placeholder="Search for products..."
+               aria-label="Search"
+               style="background-color: #F0F0F0;">
+
+        <button class="search-btn btn" type="button">
+          <fa-icon [icon]="faMagnifyingGlass" class="search-icon text-muted"></fa-icon>
+        </button>
+      </form>
+
+      <div class="icons d-flex align-items-center">
+        <button class="btn">
+          <fa-icon [icon]="faShoppingCart" class="cart-icon"></fa-icon>
+        </button>
+      </div>
+
+    </div>
+
+    @if (!isNavbarCollapsed && isLandingPageActive()) {
+      <div [ngbCollapse]="isNavbarCollapsed" class="navbar-menu collapse navbar-collapse mt-3" id="navbarSupportedContent">
+        <ng-content select="menu" />
+      </div>
+    }
+
+  </div>
+</nav>

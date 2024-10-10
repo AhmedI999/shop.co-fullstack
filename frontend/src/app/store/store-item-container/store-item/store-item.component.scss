@@ -1,0 +1,112 @@
+
+/* Card Container */
+.d-flex.flex-column {
+  background: #f0efed;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.d-flex.flex-column:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Image Section with Background */
+.img-fluid {
+  height: 220px;
+  border-radius: 15px 15px 0 0;
+  object-fit: cover;
+  transition: transform 0.4s ease-in-out;
+}
+
+.d-flex.flex-column:hover .img-fluid {
+  transform: scale(1.05);
+}
+
+/* Details Section */
+.details {
+  padding: 20px;
+  text-align: center;
+}
+
+.details h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.details .rating .badge {
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+.details .rating .badge:hover {
+  background-color: #ffc107;
+}
+
+/* Price and Description */
+.price-quantity h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.price-quantity .description {
+  font-size: 1.05rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Colors Section */
+.colors {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.colors h5 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.colors .color-box {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.colors .color-box:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Media Queries */
+@media (max-width: 576px) {
+  .d-flex.flex-column {
+    max-width: 100%;
+  }
+
+  .details {
+    padding: 15px;
+  }
+
+  .details h3 {
+    font-size: 1.3rem;
+  }
+
+  .price-quantity h2 {
+    font-size: 1.5rem;
+  }
+
+  .colors .color-box {
+    width: 30px;
+    height: 30px;
+  }
+}

@@ -1,0 +1,90 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('../public/assets/fonts/Inter.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+$font-family-sans-serif: Inter;
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+body {
+  color: #000;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+/* GLOBAL STYLES FOR NAVIGATION */
+.navbar-nav {
+  font-size: 1.75rem;
+}
+.search-form {
+  position: relative;
+  width: 50%;
+}
+.search-btn {
+  position: absolute;
+  top: .7rem;
+  left: 0;
+}
+.search-icon {
+  font-size: 2rem;
+}
+@media(max-width: 75em) {
+  .search-form {
+    width: 40%;
+  }
+  .search-icon {
+    font-size: 1.6rem;
+  }
+}
+@media(max-width: 62em) {
+  .search-form {
+    width: 30%;
+  }
+}
+@media (max-width: 48em) {
+  .search-icon {
+    font-size: 1.6rem;
+  }
+}
+//
+
+
+
+
+
+
+
+/* CUSTOM BOOTSTRAP GOES HERE */
+$secondary: #bbb;
+$dark: #000;
+
+
+// Spacing
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  6: $spacer * 6,
+  7: $spacer * 8,
+  8: $spacer * 12,
+  9: $spacer * 14,
+  10: $spacer * 16
+) !default;
+$enable-negative-margins: true;
+
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

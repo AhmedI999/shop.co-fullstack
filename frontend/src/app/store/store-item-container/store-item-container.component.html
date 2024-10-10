@@ -1,0 +1,25 @@
+<!--
+Todo implement a loader
+Todo Add -> Add to cart btn to each card
+Todo Implement cart page
+Todo Implement card details page ( low priority )
+ -->
+<div class="container">
+  @if (isFetching() && !error()){
+    <p class="display-3">Fetching available places...</p>
+  }
+  @if (error()){
+    <p class="display-3">{{ error() }}</p>
+  }
+  @if (products()) {
+    <div class="mt-4">
+      <div class="row g-4 d-flex gap-5 justify-content-center align-items-center">
+        @for (product of products(); track product.id) {
+          <div class="col-12 col-md-5 col-lg-3">
+            <app-store-item [product]="product"/>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
