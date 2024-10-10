@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "install": "npm update",
+    "update": "npm update",
     "start": "node app.js"
   },
   "keywords": [],
