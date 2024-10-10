@@ -24,6 +24,9 @@ exports.handler = async (event) => {
         return {
             statusCode: 200,
             headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, PUT, DELETE',
+                'Access-Control-Allow-Headers': 'Content-Type',
                 "Content-Type": `image/${imageType}`,
             },
             body: imageBuffer.toString("base64"),

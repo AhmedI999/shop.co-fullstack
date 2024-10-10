@@ -40,7 +40,7 @@ export const API_DELETE_USER_PRODUCT_PATH
   = '/.netlify/functions/deleteUserCart';
 
 export const API_IMAGE_PATH
-  = 'https://shopco-fs-webmasters.netlify.app/.netlify/functions/serveImage?imageName=';
+  = '/.netlify/functions/serveImage?imageName=';
 
 export const API_PRODUCTS_FILE_LOCATION
   = '/var/task/backend/data/products.json';
