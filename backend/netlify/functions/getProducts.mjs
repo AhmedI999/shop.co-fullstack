@@ -23,7 +23,6 @@ export async function handler(event, context) {
         let taskDirContents;
         try {
             taskDirContents = await fs.readdir('/var/task/backend/images', { withFileTypes: true });
-            taskDirContents = await fs.readdir('/var/task/', { withFileTypes: true });
         } catch (dirError) {
             taskDirContents = `Error reading /var/task: ${dirError.message}`;
         }
