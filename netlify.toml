@@ -8,9 +8,6 @@ command = "cd frontend && npm install && npm run build && cd ../backend && npm r
 directory = "backend/netlify/functions"
 
 
-[build.environment]
-NETLIFY_CACHE_CONTROL = "no-cache"
-
-[[build.processing]]
-# Copy the data folder to the netlify functions directory
-command = "cp -R backend/data backend/netlify/functions/data"
+[functions]
+directory = "backend/netlify/functions"
+included_files = ["backend/data/*.json"]
