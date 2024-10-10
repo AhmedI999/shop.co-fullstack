@@ -1,7 +1,8 @@
 const fs = require('node:fs/promises');
+import {API_USER_CART_LOCATION} from '../../../frontend/src/app/app.apiRoutes.js'
 
 export async function handler(event, context) {
-    const fileContent = await fs.readFile("./backend/data/products.json");
+    const fileContent = await fs.readFile(API_USER_CART_LOCATION);
 
     const userCart = JSON.parse(fileContent);
 

@@ -1,5 +1,6 @@
 import {Component, input, OnInit} from '@angular/core';
 import {Product} from '../../store.model';
+import {API_IMAGE_PATH} from '../../../app.apiRoutes';
 
 
 @Component({
@@ -11,6 +12,7 @@ import {Product} from '../../store.model';
 })
 export class StoreItemComponent{
   product = input.required<Product>();
+  protected readonly API_IMAGE_PATH = API_IMAGE_PATH;
 }
 
 

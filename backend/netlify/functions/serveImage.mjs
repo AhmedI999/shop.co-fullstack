@@ -1,5 +1,6 @@
 const fs = require("fs").promises;
 const path = require("path");
+import { API_IMAGES_LOCATION } from '../../../frontend/src/app/app.apiRoutes.js'
 
 exports.handler = async (event) => {
     const { queryStringParameters } = event;
@@ -12,7 +13,7 @@ exports.handler = async (event) => {
         };
     }
 
-    const imagePath = path.join("./backend/images", imageName);
+    const imagePath = path.join(API_IMAGES_LOCATION, imageName);
 
     try {
         // Check if the file exists

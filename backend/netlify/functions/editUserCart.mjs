@@ -1,16 +1,16 @@
 
-
+import { API_PRODUCTS_FILE_LOCATION, API_USER_CART_LOCATION } from '../../../frontend/src/app/app.apiRoutes.js'
 const fs = require('node:fs/promises');
 
 export async function handler(event, context) {
     const productId = req.body.productId;
 
-    const fileContent = await fs.readFile("./backend/data/products.json");
+    const fileContent = await fs.readFile(API_PRODUCTS_FILE_LOCATION);
     const productData = JSON.parse(fileContent);
 
     const product = productData.find((place) => product.id === productId);
 
-    const userProductsFileContent = await fs.readFile("../../data/user-products.json");
+    const userProductsFileContent = await fs.readFile(API_USER_CART_LOCATION);
     const userProductsData = JSON.parse(userProductsFileContent);
 
     let updatedUserProducts = userProductsData;

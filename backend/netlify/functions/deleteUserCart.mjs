@@ -1,10 +1,10 @@
-
+import { API_PRODUCTS_FILE_LOCATION } from '../../../frontend/src/app/app.apiRoutes.js'
 const fs = require('node:fs/promises');
 
 export async function handler(event, context) {
     const productId = req.params.id;
 
-    const userProductsFileContent = await fs.readFile("./backend/data/products.json");
+    const userProductsFileContent = await fs.readFile(API_PRODUCTS_FILE_LOCATION);
     const userProductsData = JSON.parse(userProductsFileContent);
 
     const productIndex = userProductsData.findIndex((product) => product.id === productId);
