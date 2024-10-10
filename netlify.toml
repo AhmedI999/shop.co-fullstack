@@ -1,0 +1,9 @@
+[build]
+publish = "frontend/dist/frontend/browser"
+command = "npm build"
+
+
+[functions]
+directory = "backend/netlify/functions"
+
+

@@ -2,6 +2,12 @@ import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Product} from './store.model';
 import {catchError, map, tap, throwError} from 'rxjs';
+import {
+  API_DELETE_USER_PRODUCT_PATH,
+  API_EDIT_USER_CART_PATH,
+  API_GET_PRODUCTS_PATH,
+  API_GET_USER_CART_PATH
+} from '../app.apiRoutes';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +19,13 @@ export class StoreService {
 
   loadAvailableProducts() {
     return this.fetchProducts(
-      'http://localhost:3000/products',
+      API_GET_PRODUCTS_PATH,
       'Something went wrong fetching the available products. please try again later.'
     );
   }
 
   loadUserCart() {
-    return this.fetchProducts('http://localhost:3000/user-cart',
+    return this.fetchProducts(API_GET_USER_CART_PATH,
       'Something went wrong fetching the user cart. please try again later.')
       .pipe(
         tap({
@@ -41,7 +47,7 @@ export class StoreService {
     }
 
 
-    return this.httpClient.put('http://localhost:3000/user-cart', {
+    return this.httpClient.put(API_EDIT_USER_CART_PATH, {
       productId: product.id,
     })
       .pipe(
@@ -65,7 +71,7 @@ export class StoreService {
       console.error("error can't delete the selected product.");
     }
 
-    return this.deleteProduct('http://localhost:3000/user-products', product.id)
+    return this.deleteProduct(API_DELETE_USER_PRODUCT_PATH, product.id)
       .pipe(
         catchError(err => {
           this.userProducts.set(prevPlaces);
