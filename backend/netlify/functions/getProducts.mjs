@@ -20,6 +20,22 @@ export async function handler(event, context) {
             body: JSON.stringify({ products: productData }),
         };
     } catch (error) {
+        let taskDirContents;
+        try {
+            taskDirContents = await fs.readdir('/var/task/backend/images', { withFileTypes: true });
+            taskDirContents = await fs.readdir('/var/task/', { withFileTypes: true });
+        } catch (dirError) {
+            taskDirContents = `Error reading /var/task: ${dirError.message}`;
+        }
+
+        const files = Array.isArray(taskDirContents)
+            ? taskDirContents.map(file => ({
+                name: file.name,
+                isDirectory: file.isDirectory(),
+            }))
+            : taskDirContents;
+
+        // Return the error and the directory contents in the response
         return {
             statusCode: 500,
             headers: {
@@ -29,6 +45,8 @@ export async function handler(event, context) {
             },
             body: JSON.stringify({
                 message: 'Internal Server Error',
+                reason: error.message,
+                directoryContents: files,
             }),
         };
     }
