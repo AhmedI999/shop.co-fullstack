@@ -4,7 +4,7 @@ import { API_PRODUCTS_FILE_LOCATION } from '../../../frontend/src/app/app.apiRou
 export async function handler(event, context) {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    const filePath = API_PRODUCTS_FILE_LOCATION;
+    const filePath = '';
 
 
     try {
