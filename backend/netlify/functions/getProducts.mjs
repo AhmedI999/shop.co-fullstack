@@ -4,16 +4,12 @@ const path = require('path');
 export async function handler(event, context) {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    // Resolve the absolute path to the products.json file
-    // const filePath = path.join(__dirname, 'data', 'products.json');
-    const filePath = '/var/task/backend/netlify/functions/data/products.json';
+    // Path assumes 'data' folder is inside the same directory as the function
+    const filePath = path.join(__dirname, 'data', 'products.json');
+
     try {
         const fileContent = await fs.readFile(filePath);
         const productData = JSON.parse(fileContent);
-
-        if (!productData) {
-            console.log('Data not found!');
-        }
 
         return {
             statusCode: 200,
@@ -28,7 +24,10 @@ export async function handler(event, context) {
         console.error('Error reading the file:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: 'Internal Server Error', reason: error }),
+            body: JSON.stringify({
+                message: 'Internal Server Error',
+                reason: error
+            }),
         };
     }
 }

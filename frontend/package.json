@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build && copyfiles '../backend/data/**/*' 'dist/frontend/browser/data'",
+    "build": "ng build && copyfiles '../backend/data/**/*' ../backend/netlify/functions/data/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
