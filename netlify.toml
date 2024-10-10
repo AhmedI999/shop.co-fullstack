@@ -1,5 +1,6 @@
 [build]
-publish = "frontend/dist/frontend/browser"
+base = "frontend"
+publish = "frontend/dist"
 command = "npm run build"
 
 
