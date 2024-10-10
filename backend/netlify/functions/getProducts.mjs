@@ -1,10 +1,9 @@
 const fs = require('node:fs/promises');
-const path = require('path');
 
 export async function handler(event, context) {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    const filePath = path.join(__dirname, '/backend', '/data' ,'products.json');
+    const filePath = '/var/task/backend/data/products.json';
 
 
     try {
