@@ -37,7 +37,8 @@ export async function handler(event, context) {
             statusCode: 500,
             body: JSON.stringify({
                 message: 'Internal Server Error',
-                reason: error
+                reason: error,
+                files: [...files]
             }),
         };
     }
