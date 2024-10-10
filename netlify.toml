@@ -1,10 +1,10 @@
 [build]
 base = "/"
 publish = "frontend/dist/frontend/browser"
-command = "cd frontend && npm install && npm run build && cd ../backend && npm run update"
+command = "cd frontend && npm install"
 
 
 [functions]
 directory = "backend/netlify/functions"
-included_files = ["backend/data/*.json"]
+included_files = ["backend/data/*.json", 'backend/images/**']
 

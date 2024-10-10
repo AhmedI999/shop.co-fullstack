@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "update": "npm update && copyfiles './backend/data/**/*' 'var/task/backend/netlify/functions'",
+    "update": "npm update",
     "start": "node app.js"
   },
   "keywords": [],
