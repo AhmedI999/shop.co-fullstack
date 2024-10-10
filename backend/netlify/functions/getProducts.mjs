@@ -5,8 +5,8 @@ export async function handler(event, context) {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
     // Resolve the absolute path to the products.json file
-    const filePath = path.join(__dirname, 'data', 'products.json');
-
+    // const filePath = path.join(__dirname, 'data', 'products.json');
+    const filePath = '/var/task/backend/netlify/functions/data/products.json';
     try {
         const fileContent = await fs.readFile(filePath);
         const productData = JSON.parse(fileContent);
