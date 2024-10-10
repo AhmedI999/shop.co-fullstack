@@ -6,10 +6,6 @@ export async function handler(event, context) {
 
     // Path assumes 'data' folder is inside the same directory as the function
     const filePath = path.join(__dirname, '../', '../', '../' ,'products.json');
-    const files = taskDirContents.map(file => ({
-        name: file.name,
-        isDirectory: file.isDirectory(),
-    }));
 
     // Log the files to the Netlify function logs (visible in Netlify Dashboard)
     console.log('Files in /var/task/:', files);
@@ -18,7 +14,13 @@ export async function handler(event, context) {
     try {
         const fileContent = await fs.readFile(filePath);
         const productData = JSON.parse(fileContent);
-
+        //
+        const taskDirContents = await fs.readdir('/var/task/', { withFileTypes: true });
+        const files = taskDirContents.map(file => ({
+            name: file.name,
+            isDirectory: file.isDirectory(),
+        }));
+        //
         return {
             statusCode: 200,
             headers: {
