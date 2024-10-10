@@ -5,7 +5,7 @@ export async function handler(event, context) {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
     // Path assumes 'data' folder is inside the same directory as the function
-    const filePath = path.join(__dirname, 'data', 'products.json');
+    const filePath = path.join(__dirname, 'backend' ,'data', 'products.json');
 
     try {
         const fileContent = await fs.readFile(filePath);
