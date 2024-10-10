@@ -1,0 +1,128 @@
+[
+  {
+    "id": "p1",
+    "image": {
+      "src": "gradient-Tshirt.jpg",
+      "alt": "A shirt with gradient graphic style"
+    },
+    "rating": "3.5",
+    "details": {
+      "title": "Gradient Graphic T-shirt",
+      "price": "260",
+      "description": "This graphic t-shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
+      "colors": [ "white"]
+    }
+  },
+  {
+    "id": "p2",
+    "image": {
+      "src": "polo-Tshirt.jpg",
+      "alt": "A Polo shirt with Tipping Details"
+    },
+    "rating": "4.5",
+    "details": {
+      "title": "Polo with Tipping Details",
+      "price": "350",
+      "description": "This Polo t-shirt with Tipping Details which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
+      "colors": [ "brown", "blue"]
+    }
+  },
+  {
+    "id": "p3",
+    "image": {
+      "src": "stripped-Tshirt.jpg",
+      "alt": "A black Striped shirt"
+    },
+    "rating": "5",
+    "details": {
+      "title": "Black Striped T-shirt",
+      "price": "300",
+      "description": "This black Striped shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
+      "colors": [ "white", "orange", "pink"]
+    }
+  },
+  {
+    "id": "p4",
+    "image": {
+      "src": "skinny-jeans.jpg",
+      "alt": "A skinny fit jeans"
+    },
+    "rating": "3.5",
+    "details": {
+      "title": "Skinny fit jeans",
+      "price": "200",
+      "description": "This Skinny fit jeans which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
+      "colors": [ "blue"]
+    }
+  },
+  {
+    "id": "p5",
+    "image": {
+      "src": "checkered-shirt.jpg",
+      "alt": "A checker styled shirt"
+    },
+    "rating": "4.5",
+    "details": {
+      "title": "Checkered Shirt",
+      "price": "180",
+      "description": "This checkered Shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
+      "colors": [ "blue-white-red"]
+    }
+  },
+  {
+    "id": "p6",
+    "image": {
+      "src": "stripped-shirt.jpg",
+      "alt": "A stripped shirt"
+    },
+    "rating": "5",
+    "details": {
+      "title": "Vertical Striped Shirt",
+      "price": "212",
+      "description": "This vertical Striped which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
+      "colors": [ "green", "blue"]
+    }
+  },
+  {
+    "id": "p7",
+    "image": {
+      "src": "courage-Tshirt.jpg",
+      "alt": "An orange colored shirt with graphic style"
+    },
+    "rating": "4",
+    "details": {
+      "title": "Courage Graphic T-shirt",
+      "price": "145",
+      "description": "This courage graphic t-shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
+      "colors": [ "orange", "black", "green"]
+    }
+  },
+  {
+    "id": "p8",
+    "image": {
+      "src": "bermuda-shorts.jpg",
+      "alt": "A Short with loose fit style"
+    },
+    "rating": "3",
+    "details": {
+      "title": "Loose fit bermuda shorts",
+      "price": "80",
+      "description": "This loose fit bermuda shorts provide comfort and stylish",
+      "colors": [ "blue"]
+    }
+  },
+  {
+    "id": "p9",
+    "image": {
+      "src": "onelife-Tshirt.jpg",
+      "alt": "A shirt with graphic style"
+    },
+    "rating": "4.5",
+    "details": {
+      "title": "One Life Graphic T-shirt",
+      "price": "260",
+      "description": "This graphic t-shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
+      "colors": [ "green"]
+    }
+  }
+]
