@@ -1,7 +1,7 @@
 [build]
-base = "/"
+base = "frontend"
 publish = "dist"
-command = "cd frontend && npm run build && cd backend && npm install"
+command = "npm install && npm run build && cd ../backend && npm install"
 
 
 [functions]
