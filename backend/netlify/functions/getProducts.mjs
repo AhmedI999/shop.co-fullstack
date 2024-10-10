@@ -28,7 +28,7 @@ export async function handler(event, context) {
         console.error('Error reading the file:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: 'Internal Server Error' }),
+            body: JSON.stringify({ message: 'Internal Server Error', reason: error }),
         };
     }
 }
