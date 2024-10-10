@@ -8,3 +8,5 @@ command = "cd frontend && npm install && npm run build && cd ../backend && npm r
 directory = "backend/netlify/functions"
 
 
+[build.environment]
+NETLIFY_CACHE_CONTROL = "no-cache"
