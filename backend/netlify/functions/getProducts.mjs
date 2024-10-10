@@ -6,7 +6,7 @@ export async function handler(event, context) {
     const path = require('path');
     const filePath = path.join(__dirname, '..', '..', 'dist', 'frontend', 'data', 'products.json');
 
-    const productData = JSON.parse(fileContent);
+    const productData = JSON.parse(filePath);
     if (!productData) {console.log('Data not found!');}
     return {
         statusCode: 200,
