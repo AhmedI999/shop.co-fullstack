@@ -8,20 +8,9 @@ export async function handler(event, context) {
     const filePath = path.join(__dirname, '../', '../', '../' ,'products.json');
 
 
-
-
     try {
         const fileContent = await fs.readFile(filePath);
         const productData = JSON.parse(fileContent);
-        //
-        const taskDirContents = await fs.readdir('/var/task/', { withFileTypes: true });
-        const files = taskDirContents.map(file => ({
-            name: file.name,
-            isDirectory: file.isDirectory(),
-        }));
-        // Log the files to the Netlify function logs (visible in Netlify Dashboard)
-        console.log('Files in /var/task/:', files);
-        //
         return {
             statusCode: 200,
             headers: {
@@ -32,13 +21,32 @@ export async function handler(event, context) {
             body: JSON.stringify({ products: productData }),
         };
     } catch (error) {
-        console.error('Error reading the file:', error);
+        let taskDirContents;
+        try {
+            taskDirContents = await fs.readdir('/var/task/', { withFileTypes: true });
+        } catch (dirError) {
+            taskDirContents = `Error reading /var/task: ${dirError.message}`;
+        }
+
+        const files = Array.isArray(taskDirContents)
+            ? taskDirContents.map(file => ({
+                name: file.name,
+                isDirectory: file.isDirectory(),
+            }))
+            : taskDirContents;
+
+        // Return the error and the directory contents in the response
         return {
             statusCode: 500,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, PUT, DELETE',
+                'Access-Control-Allow-Headers': 'Content-Type',
+            },
             body: JSON.stringify({
                 message: 'Internal Server Error',
-                reason: error,
-                files: [...files]
+                reason: error.message,
+                directoryContents: files,
             }),
         };
     }
