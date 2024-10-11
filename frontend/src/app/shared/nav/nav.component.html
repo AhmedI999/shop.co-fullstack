@@ -5,7 +5,6 @@
         <button class="navbar-toggler border-0"
                 type="button"
                 (click)="onMenuClicked()"
-                #menuBtnEl
                 aria-controls="navbarSupportedContent"
                 aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -16,18 +15,7 @@
 
       <ng-content />
 
-      <form class="search-form d-none d-sm-flex ms-auto ms-lg-0" role="search" >
-        <input
-               class="search-input form-control fs-4 ms-auto me-2 py-2 px-5 pe-3 rounded-pill"
-               type="search"
-               placeholder="Search for products..."
-               aria-label="Search"
-               style="background-color: #F0F0F0;">
-
-        <button class="search-btn btn" type="button">
-          <fa-icon [icon]="faMagnifyingGlass" class="search-icon text-muted"></fa-icon>
-        </button>
-      </form>
+      <ng-content select="search-form" />
 
       <div class="icons d-flex align-items-center">
         <button class="btn">

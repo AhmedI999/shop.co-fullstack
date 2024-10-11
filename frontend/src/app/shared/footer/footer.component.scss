@@ -1,0 +1,25 @@
+.brand-logo {
+  font-size: 2rem;
+  font-weight: 600;
+}
+.brand-description {
+  font-size: 1.2rem;
+}
+
+svg circle {
+  cursor: pointer;
+}
+
+.footer-header {
+  font-size: 1.6rem;
+}
+
+.footer-links  {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+@media (max-width: 36em) {
+  .brand-description {
+    font-size: 1.6rem;
+  }
+}

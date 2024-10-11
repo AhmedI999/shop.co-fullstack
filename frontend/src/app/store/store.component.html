@@ -1,13 +1,15 @@
 <app-nav [isLandingPage]="false">
-  <form class="search-form d-block d-sm-none d-sm-flex ms-auto ms-lg-0" role="search" >
+  <form class="search-form d-sm-flex ms-auto ms-lg-0" role="search" ngProjectAs="search-form" [formGroup]="searchGroup">
     <input
       class="search-input form-control fs-4 ms-auto me-2 py-2 px-5 pe-3 rounded-pill"
       type="search"
       placeholder="Search for products..."
       aria-label="Search"
-      style="background-color: #F0F0F0;">
-
-    <button class="search-btn btn" type="button">
+      style="background-color: #F0F0F0;"
+      name="search"
+      formControlName="search"
+    >
+    <button class="search-btn btn" type="submit">
       <fa-icon [icon]="faMagnifyingGlass" class="search-icon text-muted"></fa-icon>
     </button>
   </form>
@@ -15,9 +17,18 @@
 
 <app-horizontal-separator />
 <app-navigator currentPage="Store"/>
+<app-store-item-container [userInput]="userInput()" />
+<app-horizontal-separator class="pb-7" />
 
-<app-store-item-container />
-<app-footer />
+@defer (on timer(2800ms)){
+  <app-footer  />
+} @placeholder () {
+  <span></span>
+}
+
+
+
+
 
 
 
