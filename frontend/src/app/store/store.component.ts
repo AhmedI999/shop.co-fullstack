@@ -8,6 +8,7 @@ import {HorizontalOvercompensation} from '../shared/horizental-seperator/horizon
 import {NavigatorComponent} from '../shared/navigator/navigator.component';
 import {StoreItemComponent} from './store-item-container/store-item/store-item.component';
 import {StoreItemContainerComponent} from './store-item-container/store-item-container.component';
+import {FooterComponent} from '../shared/footer/footer.component';
 
 @Component({
   selector: 'app-store',
@@ -21,7 +22,8 @@ import {StoreItemContainerComponent} from './store-item-container/store-item-con
     HorizontalOvercompensation,
     NavigatorComponent,
     StoreItemComponent,
-    StoreItemContainerComponent
+    StoreItemContainerComponent,
+    FooterComponent
   ],
   templateUrl: './store.component.html',
   styleUrl: './store.component.scss'

@@ -1,4 +1,4 @@
-import {inject, Injectable, signal} from '@angular/core';
+import {inject, Injectable, signal, WritableSignal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Product} from './store.model';
 import {catchError, map, tap, throwError} from 'rxjs';
@@ -78,6 +78,17 @@ export class StoreService {
           return throwError(() => new Error('Failed to delete the product. 404 Not found'));
         })
       );
+  }
+  updatePaginatedProducts(currentPage: number,
+                          productsPerPage: number,
+                          allProducts: WritableSignal<Product[] | undefined>): Product[] | undefined
+  {
+    if (!allProducts()) return undefined;
+
+    const startIndex = currentPage * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+
+    return allProducts()!.slice(startIndex, endIndex);
   }
 
 

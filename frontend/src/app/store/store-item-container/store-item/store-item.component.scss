@@ -1,7 +1,7 @@
-
 /* Card Container */
 .d-flex.flex-column {
   background: #f0efed;
+  border: 2px solid rgba(0, 0, 0, 0.1); /* Light border for better visibility */
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;

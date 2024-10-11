@@ -5,7 +5,10 @@
   font-style: normal;
 }
 $font-family-sans-serif: Inter;
-
+// var for styling pagination
+:root {
+  --mdc-plain-tooltip-supporting-text-size: 1.1rem;
+}
 *{
   padding: 0;
   margin: 0;
@@ -85,6 +88,27 @@ $spacers: (
 ) !default;
 $enable-negative-margins: true;
 
+
+/* Styling the pagination */
+.mat-mdc-select-value-text {
+  font-size: 1.4rem !important;
+}
+.mdc-list-item__primary-text {
+  text-align: center !important;
+  font-size: 1.4rem !important;
+}
+#mat-paginator-page-size-label-0 {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.mat-mdc-paginator-icon {
+  font-size: 1.4rem !important;
+}
+
+.mat-mdc-paginator-range-label {
+  font-size: 1.4rem !important;
+}
+@import "../node_modules/@angular/material/prebuilt-themes/azure-blue.css";
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';

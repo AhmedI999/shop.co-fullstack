@@ -1,0 +1,59 @@
+/* Placeholder Card */
+.placeholder-card {
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+/* Placeholder Image */
+.placeholder-img {
+  height: 150px;
+  background-color: #e0e0e0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Glow Effect for Placeholder */
+.placeholder-glow .placeholder {
+  animation: placeholder-glow 1.5s infinite;
+}
+
+
+/* FOR PAGINATION */
+mat-paginator {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  background-color: #ebeaea;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  mat-paginator {
+    font-size: 1rem;
+
+    .mat-select-trigger,
+    .mat-option {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+// animations
+@keyframes placeholder-glow {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
