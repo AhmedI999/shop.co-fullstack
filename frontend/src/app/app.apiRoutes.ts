@@ -3,6 +3,9 @@
 export const API_GET_PRODUCTS_PATH
   = 'http://localhost:8888/.netlify/functions/getProducts';
 
+export const API_GET_PRODUCT_PATH
+  = 'http://localhost:8888/.netlify/functions/getProductById';
+
 export const API_GET_USER_CART_PATH
   = 'http://localhost:8888/.netlify/functions/getUserCart';
 
@@ -37,6 +40,9 @@ export const API_IMAGES_LOCATION
 export const API_GET_PRODUCTS_PATH
   = '/.netlify/functions/getProducts';
 
+export const API_GET_PRODUCT_PATH
+  = '/.netlify/functions/getProductById';
+
 export const API_GET_USER_CART_PATH
   = '/.netlify/functions/getUserCart';
 
@@ -63,6 +69,9 @@ export const API_IMAGES_LOCATION
 // for node.js ( launching frontend's and backend's package.json
 /*
 export const API_GET_PRODUCTS_PATH
+  = 'http://localhost:3000/products';
+
+export const API_GET_PRODUCT_PATH
   = 'http://localhost:3000/products';
 
 export const API_GET_USER_CART_PATH

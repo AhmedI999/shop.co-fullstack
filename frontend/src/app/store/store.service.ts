@@ -4,7 +4,7 @@ import {Product} from './store.model';
 import {catchError, map, tap, throwError} from 'rxjs';
 import {
   API_DELETE_USER_PRODUCT_PATH,
-  API_EDIT_USER_CART_PATH,
+  API_EDIT_USER_CART_PATH, API_GET_PRODUCT_PATH,
   API_GET_PRODUCTS_PATH,
   API_GET_USER_CART_PATH
 } from '../app.apiRoutes';
@@ -26,7 +26,7 @@ export class StoreService {
 
   loadProductById(productId: string) {
     return this.fetchProduct(
-      API_GET_PRODUCTS_PATH + `/${productId}`,
+      API_GET_PRODUCT_PATH + `/${productId}`,
       'Something went wrong fetching the available products. please try again later.'
     );
   }

@@ -6,7 +6,10 @@ export async function handler(event, context) {
 
     const fileContent = await fs.readFile(API_PRODUCTS_FILE_LOCATION);
     const productData = JSON.parse(fileContent);
-    const productId = event.queryStringParameters.id;
+
+    // Extract product ID from the path
+    const pathParts = event.path.split('/');
+    const productId = pathParts[pathParts.length - 1];
     const product = productData.find((p) => p.id === productId);
 
     if (product) {
