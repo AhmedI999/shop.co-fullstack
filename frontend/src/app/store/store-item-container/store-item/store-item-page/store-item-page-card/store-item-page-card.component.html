@@ -1,0 +1,177 @@
+<div class="container my-5">
+  <div class="row gap-5 gap-md-3 gap-md-2 gap-lg-5 d-flex justify-content-center">
+    <div class="col-10 offset-2 col-md-6 offset-md-0 col-lg-4">
+      <img [src]=" API_IMAGE_PATH + product().image.src" [alt]="product().image.alt" class="img-fluid item-img" />
+    </div>
+    <div class="product col-10 offset-2 col-md-4 offset-md-0 col-lg-4 d-flex flex-column gap-4 gap-md-3 ">
+      <h1 class="item-title">{{ product().details.title }}</h1>
+      <div class="price-quantity">
+        <p class="rating badge text-yellow ms-n2">
+          @for (star of fullStars; track $index) {
+            <span class="">
+             <fa-icon [icon]="faStar" size="2x"></fa-icon>
+           </span>
+          }
+          @if (hasHalfStar) {
+            <span class="">
+             <fa-icon [icon]="faStarHalfAlt" size="2x"></fa-icon>
+           </span>
+          }
+        </p>
+        <span class="rating-full">{{product().rating}}/5</span>
+        <h2 class="price text-dark">$ {{ product().details.price }}</h2>
+      </div>
+
+      <p class="description">
+        {{ product().details.description }}
+      </p>
+      <hr style="background: rgba(0, 0, 0, 0.10);" />
+      <div class="colors mt-3">
+        <h5>Available Colors:</h5>
+        <div class="d-flex justify-content-center">
+          @for (color of product().details.colors; track $index) {
+            <div class="color-box me-2"
+                 [style.background-color]="color"
+                 style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ccc;"></div>
+          }
+        </div>
+      </div>
+      <hr style="background: rgba(0, 0, 0, 0.10);" />
+      <div class="row gap-3 quantity-addCart">
+        <div class="col-4 quantity">
+          <button type="button" class="btn-minus">
+            <fa-icon [icon]="faMinus"></fa-icon>
+          </button>
+          <span class="quantity-value">1</span>
+          <button type="button" class="btn-plus">
+            <fa-icon [icon]="faPlus"></fa-icon>
+          </button>
+        </div>
+        <div class="col-6 addCart">
+          <button type="button" class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reviews mt-7 row">
+    <h2 class="text-center">Rating & Reviews</h2>
+    <hr style="background: rgba(0, 0, 0, 0.10);" class="mb-5 mt-2"/>
+
+    <div class="review-card card p-3 col-6 mb-5">
+      <div class="d-flex justify-content-between">
+        <!-- Stars Rating -->
+        <div class="stars text-yellow">
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStarHalfAlt" />
+        </div>
+        <!-- Dots Menu -->
+        <div class="options">
+          <fa-icon [icon]="faEllipsisH" />
+        </div>
+      </div>
+
+      <!-- User Info -->
+      <div class="user-info mt-2 d-flex align-items-center">
+        <strong>Samantha D.</strong>
+        <fa-icon [icon]="faCheckCircle"/>
+      </div>
+
+      <!-- Review Content -->
+      <div class="review-content mt-2">
+        <p>
+          "I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt."
+        </p>
+        <small class="text-muted">Posted on August 14, 2023</small>
+      </div>
+    </div>
+    <div class="review-card card p-3 col-6 mb-5">
+      <div class="d-flex justify-content-between">
+        <!-- Stars Rating -->
+        <div class="stars text-yellow">
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStar" />
+        </div>
+        <!-- Dots Menu -->
+        <div class="options">
+          <fa-icon [icon]="faEllipsisH" />
+        </div>
+      </div>
+
+      <!-- User Info -->
+      <div class="user-info mt-2 d-flex align-items-center">
+        <strong>Alex M.</strong>
+        <fa-icon [icon]="faCheckCircle"/>
+      </div>
+
+      <!-- Review Content -->
+      <div class="review-content mt-2">
+        <p>
+          "The t-shirt exceeded my expectations! The colors are vibrant and the print quality is top-notch. Being a UI/UX designer myself, I'm quite picky about aesthetics, and this t-shirt definitely gets a thumbs up from me."
+        </p>
+        <small class="text-muted">Posted on August 15, 2023</small>
+      </div>
+    </div>
+    <div class="review-card card p-3 col-6 mb-5">
+      <div class="d-flex justify-content-between">
+        <!-- Stars Rating -->
+        <div class="stars text-yellow">
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStarHalfAlt" />
+        </div>
+        <!-- Dots Menu -->
+        <div class="options">
+          <fa-icon [icon]="faEllipsisH" />
+        </div>
+      </div>
+
+      <!-- User Info -->
+      <div class="user-info mt-2 d-flex align-items-center">
+        <strong>Ethan R.</strong>
+        <fa-icon [icon]="faCheckCircle"/>
+      </div>
+
+      <!-- Review Content -->
+      <div class="review-content mt-2">
+        <p>
+          "This t-shirt is a must-have for anyone who appreciates good design. The minimalistic yet stylish pattern caught my eye, and the fit is perfect. I can see the designer's touch in every aspect of this shirt."
+        </p>
+        <small class="text-muted">Posted on August 16, 2023</small>
+      </div>
+    </div>
+    <div class="review-card card p-3 col-6 mb-5">
+      <div class="d-flex justify-content-between">
+        <!-- Stars Rating -->
+        <div class="stars text-yellow">
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStar" />
+          <fa-icon [icon]="faStar" />
+        </div>
+        <!-- Dots Menu -->
+        <div class="options">
+          <fa-icon [icon]="faEllipsisH" />
+        </div>
+      </div>
+
+      <!-- User Info -->
+      <div class="user-info mt-2 d-flex align-items-center">
+        <strong>Ava H.</strong>
+        <fa-icon [icon]="faCheckCircle"/>
+      </div>
+
+      <!-- Review Content -->
+      <div class="review-content mt-2">
+        <p>
+          "I'm not just wearing a t-shirt; I'm wearing a piece of design philosophy. The intricate details and thoughtful layout of the design make this shirt a conversation starter."
+        </p>
+        <small class="text-muted">Posted on August 19, 2023</small>
+      </div>
+    </div>
+  </div>-
+</div>

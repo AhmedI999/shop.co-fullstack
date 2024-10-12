@@ -1,0 +1,204 @@
+// general
+.product {
+
+}
+
+// TITle
+.item-title {
+  font-size: 3.6rem;
+  font-weight: 700;
+}
+// image
+.item-img {
+  height: 100%;
+}
+// Price
+.price {
+  font-size: 3rem;
+  font-weight: 700;
+}
+.price-quantity {
+  text-align: start;
+
+}
+// Description
+.description {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+// RATING
+.rating .badge {
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+.rating .badge:hover {
+  background-color: #ffc107;
+}
+.rating-full {
+  font-size: 1.4rem;
+}
+// COLORS
+.colors {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: .6rem;
+}
+
+.colors h5 {
+  font-size: 1.6rem;
+}
+.colors .color-box {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.colors .color-box:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+// quantity and add to cart
+.quantity-addCart {
+  display: flex;
+  align-items: center;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border-radius: 25px;
+  padding: 1.4rem 1rem;
+
+}
+
+.btn-minus, .btn-plus {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.quantity-value {
+  margin: 0 15px;
+  font-size: 1.6rem;
+}
+
+.addCart .btn-add {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 40px;
+  font-size: 1.8rem;
+  border-radius: 25px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.fa-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@media (max-width: 62em) {
+  .item-img {
+    height: 75%;
+  }
+  .item-title {
+    font-size: 2.6rem;
+    font-weight: 600;
+  }
+  .price {
+    font-size: 2rem;
+  }
+  .description {
+    font-size: 1.2rem;
+  }
+  .colors-section p {
+    font-size: 1.4rem;
+  }
+  .addCart .btn-add {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+  }
+  .addCart {
+    width: 55%;
+  }
+  .quantity {
+    padding: 1.2rem 3rem;
+    width: 40%;
+  }
+
+}
+@media (max-width: 48em) {
+  .item-img {
+    height: 100%;
+  }
+  .colors .color-box {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+// REVIEWS
+/* Review Card Style */
+.options {
+  cursor: pointer;
+}
+.review-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px; /* Increased padding */
+}
+
+/* Stars Rating */
+.stars i {
+  color: #ffcc00;
+  font-size: 1.8rem; /* Increased star size */
+  margin-right: 5px;
+}
+
+/* Dots Menu (Three vertical dots) */
+.options i {
+  font-size: 1.5rem; /* Increased dots size */
+  color: #b0b0b0;
+  cursor: pointer;
+}
+
+/* User Info Style */
+.user-info strong {
+  font-size: 1.4rem; /* Increased user name font size */
+  color: #333;
+}
+
+.user-info i {
+  font-size: 1.2rem; /* Increased checkmark size */
+}
+
+/* Review Content */
+.review-content p {
+  font-size: 1.2rem; /* Increased review text size */
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Post Date Style */
+.review-content small {
+  font-size: 1.1rem; /* Increased date font size */
+  color: #888;
+}
+

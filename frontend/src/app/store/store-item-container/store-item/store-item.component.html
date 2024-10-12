@@ -1,33 +1,26 @@
-<div class="d-flex flex-column">
+<div class="d-flex flex-column py-3">
   <!-- Image Section -->
   <img [src]=" API_IMAGE_PATH + product().image.src" [alt]="product().image.alt" class="img-fluid rounded shadow" />
   <!-- Details Section -->
   <div class="details">
-    <h3 class="mb-3">{{ product().details.title }}</h3>
+    <h3 class="mb-3 text-start">{{ product().details.title }}</h3>
 
-    <!-- Rating Section -->
-    <p class="rating">
-      <span class="badge bg-warning text-dark">
-        {{ product().rating }} <i class="bi bi-star-fill"></i>
-      </span>
-    </p>
-
-    <!-- Price and Description -->
+    <!-- Rating and price Section  -->
     <div class="price-quantity">
-      <h2 class="price text-success">$ {{ product().details.price }}</h2>
-      <p class="description mt-2">{{ product().details.description }}</p>
-    </div>
-
-    <!-- Available Colors Section -->
-    <div class="colors mt-3">
-      <h5>Available Colors:</h5>
-      <div class="d-flex justify-content-center">
-        @for (color of product().details.colors; track $index) {
-          <div class="color-box me-2"
-               [style.background-color]="color"
-               style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ccc;"></div>
+      <p class="rating badge text-yellow ms-n2">
+        @for (star of fullStars; track $index) {
+          <span class="">
+            <fa-icon [icon]="faStar" size="2x"></fa-icon>
+          </span>
         }
-      </div>
+        @if (hasHalfStar) {
+          <span class="">
+            <fa-icon [icon]="faStarHalfAlt" size="2x"></fa-icon>
+          </span>
+        }
+      </p>
+      <span class="rating-full">{{product().rating}}/5</span>
+      <h2 class="price text-success">$ {{ product().details.price }}</h2>
     </div>
   </div>
 </div>

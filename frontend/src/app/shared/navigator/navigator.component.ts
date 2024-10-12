@@ -11,5 +11,6 @@ import {RouterLink} from '@angular/router';
   styleUrl: './navigator.component.scss'
 })
 export class NavigatorComponent {
+  addStorePath = input<string>();
   currentPage = input.required<string>();
 }

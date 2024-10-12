@@ -49,20 +49,19 @@
 .details .rating .badge:hover {
   background-color: #ffc107;
 }
-
+.rating-full {
+  font-size: 1.4rem;
+}
 /* Price and Description */
+.price-quantity {
+  text-align: start;
+
+}
 .price-quantity h2 {
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 15px;
 }
-
-.price-quantity .description {
-  font-size: 1.05rem;
-  color: #555;
-  line-height: 1.6;
-}
-
 /* Colors Section */
 .colors {
   margin-top: 15px;
@@ -90,7 +89,8 @@
 /* Media Queries */
 @media (max-width: 576px) {
   .d-flex.flex-column {
-    max-width: 100%;
+    max-width: 80%;
+    margin: 0 auto;
   }
 
   .details {

@@ -24,6 +24,13 @@ export class StoreService {
     );
   }
 
+  loadProductById(productId: string) {
+    return this.fetchProduct(
+      API_GET_PRODUCTS_PATH + `/${productId}`,
+      'Something went wrong fetching the available products. please try again later.'
+    );
+  }
+
   loadUserCart() {
     return this.fetchProducts(API_GET_USER_CART_PATH,
       'Something went wrong fetching the user cart. please try again later.')
@@ -58,7 +65,7 @@ export class StoreService {
       );
   }
 
-  removeUserPlace(product: Product) {
+  removeUserProduct(product: Product) {
     const prevPlaces = this.userProducts();
 
     const isPlaceExists = prevPlaces.some(p => p.id === product.id);
@@ -79,6 +86,7 @@ export class StoreService {
         })
       );
   }
+
   updatePaginatedProducts(currentPage: number,
                           productsPerPage: number,
                           allProducts: WritableSignal<Product[] | undefined>): Product[] | undefined
@@ -97,6 +105,19 @@ export class StoreService {
       .get<{ products: Product[] }>(url)
       .pipe(
         map((resData) => resData.products),
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => {
+            return new Error(errorMessage);
+          });
+        })
+      );
+  }
+  private fetchProduct(url: string, errorMessage: string) {
+    return this.httpClient
+      .get<{ product: Product }>(url)
+      .pipe(
+        map((resData) => resData.product),
         catchError((error) => {
           console.error(error);
           return throwError(() => {

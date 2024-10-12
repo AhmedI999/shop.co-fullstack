@@ -1,8 +1,9 @@
-import {Component, DestroyRef, effect, inject, input, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, OnInit, signal} from '@angular/core';
 import {StoreItemComponent} from "./store-item/store-item.component";
 import {StoreService} from '../store.service';
 import {Product} from '../store.model';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 
 
 @Component({
@@ -11,9 +12,12 @@ import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
   imports: [
     StoreItemComponent,
     MatPaginatorModule,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './store-item-container.component.html',
-  styleUrl: './store-item-container.component.scss'
+  styleUrl: './store-item-container.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StoreItemContainerComponent implements OnInit {
   private storeService = inject(StoreService);

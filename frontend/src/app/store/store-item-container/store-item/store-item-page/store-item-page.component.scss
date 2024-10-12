@@ -1,4 +1,4 @@
-/* Placeholder Card */
+// Placeholder
 /* General Placeholder Styles */
 .placeholder {
   background: rgba(0, 0, 0, 0.1);
@@ -6,12 +6,13 @@
   animation: pulse 1.5s infinite;
 }
 
-/* Image Placeholder */
+/* Product Image Placeholder */
 .image-skeleton {
   position: relative;
   width: 100%;
-  height: 250px; /* Adjust height as needed */
+  height: 300px;
   background-color: rgba(0, 0, 0, 0.05);
+  overflow: hidden;
   border-radius: 8px;
 }
 
@@ -25,14 +26,13 @@
   animation: shimmer 1.6s infinite;
 }
 
-/* Title Placeholder */
+/* Specific Placeholder Sizes */
 .title-placeholder {
-  width: 60%;
+  width: 70%;
   height: 30px;
   margin-bottom: 10px;
 }
 
-/* Rating and Price Placeholders */
 .rating-placeholder {
   width: 40%;
   height: 20px;
@@ -43,6 +43,31 @@
   width: 50%;
   height: 25px;
   margin-bottom: 10px;
+}
+
+.description-placeholder {
+  width: 100%;
+  height: 70px;
+  margin-bottom: 10px;
+}
+
+.color-placeholder {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.quantity-placeholder {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+/* Review Card Placeholder */
+.review-placeholder {
+  height: 150px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
 }
 
 /* Animations */
@@ -67,35 +92,3 @@
   }
 }
 
-
-/* FOR PAGINATION */
-mat-paginator {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  font-size: 1.6rem;
-  font-weight: 600;
-  padding: 1rem 2rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive styling */
-@media (max-width: 768px) {
-  mat-paginator {
-    font-size: 1rem;
-  }
-}
-
-// animations
-@keyframes placeholder-glow {
-  0% {
-    background-color: #e0e0e0;
-  }
-  50% {
-    background-color: #f0f0f0;
-  }
-  100% {
-    background-color: #e0e0e0;
-  }
-}
