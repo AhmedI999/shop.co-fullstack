@@ -6,5 +6,4 @@ command = "cd frontend && npm install && npm run build && cd ../backend && npm r
 
 [functions]
 directory = "backend/netlify/functions"
-included_files = ["backend/data/*.json --write", 'backend/images/*']
-
+included_files = ["backend/data/*.json", 'backend/images/*']

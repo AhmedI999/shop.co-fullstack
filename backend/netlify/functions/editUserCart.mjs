@@ -25,9 +25,19 @@ export async function handler(event, context) {
             };
         }
 
-        // Read user cart data
-        const userProductsFileContent = await fs.readFile(API_USER_CART_LOCATION);
-        const userProductsData = JSON.parse(userProductsFileContent);
+        // Read user cart data from temporary file
+        const tempUserCartPath = '/tmp/user-cart.json';
+
+        let userProductsData = [];
+        try {
+            const userProductsFileContent = await fs.readFile(tempUserCartPath);
+            userProductsData = JSON.parse(userProductsFileContent);
+        } catch (error) {
+            // If the file doesn't exist, initialize with an empty array
+            if (error.code !== 'ENOENT') {
+                throw error; // Re-throw unexpected errors
+            }
+        }
 
         // Check if the product already exists in the cart
         let updatedUserProducts;
@@ -46,8 +56,8 @@ export async function handler(event, context) {
             updatedUserProducts = [...userProductsData, { ...product, amount }];
         }
 
-        // Write the updated user products back to the file
-        await fs.writeFile(API_USER_CART_LOCATION, JSON.stringify(updatedUserProducts));
+        // Write the updated user products back to the temporary file
+        await fs.writeFile(tempUserCartPath, JSON.stringify(updatedUserProducts));
 
         return {
             statusCode: 200,
