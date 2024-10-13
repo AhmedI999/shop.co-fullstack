@@ -44,22 +44,23 @@ export class StoreService {
   addProductToUserCart(product: Product) {
     const preCart = this.userProducts();
 
-    const productAlreadyExists = preCart.some(p => p.id === product.id)
+    const productAlreadyExists = preCart.some(p => p.id === product.id);
     if (!productAlreadyExists) {
       this.userProducts.update(prevProducts => [...prevProducts, product]);
     }
     if (productAlreadyExists) {
-      product.amount++;
-      this.userProducts.update(prevProducts => [...prevProducts, product]);
+      this.userProducts.update(prevProducts => {
+        return prevProducts.map(p => p.id === product.id ? { ...p, amount: product.amount } : p);
+      });
     }
-
 
     return this.httpClient.put(API_EDIT_USER_CART_PATH, {
       productId: product.id,
+      amount: product.amount  // <-- Include amount here
     })
       .pipe(
         catchError(err => {
-          this.userProducts.set(preCart);
+          this.userProducts.set(preCart);  // Revert to previous state on error
           return throwError(() => new Error('Failed to add selected product to the cart.'));
         })
       );

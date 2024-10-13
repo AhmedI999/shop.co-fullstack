@@ -39,18 +39,44 @@
       <hr style="background: rgba(0, 0, 0, 0.10);" />
       <div class="row gap-3 quantity-addCart">
         <div class="col-4 quantity">
-          <button type="button" class="btn-minus">
+          <button type="button" class="btn-minus" (click)="onMinusPressed()">
             <fa-icon [icon]="faMinus"></fa-icon>
           </button>
-          <span class="quantity-value">1</span>
-          <button type="button" class="btn-plus">
+          <span class="quantity-value">{{ quantity() }}</span>
+          <button type="button" class="btn-plus" (click)="onPlusPressed()">
             <fa-icon [icon]="faPlus"></fa-icon>
           </button>
         </div>
-        <div class="col-6 addCart">
-          <button type="button" class="btn-add">Add to Cart</button>
+
+        <div class="col-6 addCart d-flex">
+          <button
+            type="button"
+            class="btn-add"
+            (click)="onAddToCartClicked()"
+            [disabled]="isAdding()"
+            [ngClass]="{
+        'btn-loading': isAdding(),
+        'btn-error': error() !== ''
+      }"
+          >
+            @if (!isAdding()) {
+              <span>Add to Cart</span>
+            }
+            @if (isAdding()) {
+              <span>Adding...</span>
+            }
+          </button>
         </div>
+
+        @if (isSuccessfullyAdded()) {
+          <app-message-alert
+            [message]="product().details.title + ' is added to cart'"
+            type="success"
+          ></app-message-alert>
+        }
       </div>
+
+
     </div>
   </div>
   <div class="reviews mt-7 row">

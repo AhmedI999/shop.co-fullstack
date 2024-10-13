@@ -1,0 +1,9 @@
+@if (isVisible()) {
+  <div class="alert" [ngClass]="{
+  'alert-success': type() === 'success',
+  'alert-danger': type() === 'failure',
+  'fade-out': fadeOut()
+}" role="alert">
+    {{ message() }}
+  </div>
+}

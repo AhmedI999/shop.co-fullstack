@@ -1,0 +1,35 @@
+/* Modern alert styling */
+.alert {
+  position: fixed;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  min-width: 300px;
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  transition: all 0.5s ease-in-out;
+  text-align: center;
+}
+
+/* Styling for success messages */
+.alert-success {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Styling for failure messages */
+.alert-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Fade-out animation */
+.fade-out {
+  opacity: 0;
+  transform: translateY(-20px);
+}

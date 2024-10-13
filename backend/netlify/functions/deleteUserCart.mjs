@@ -16,7 +16,7 @@ export async function handler(event, context) {
     }
 
     await fs.writeFile(
-        "./data/user-products.json",
+        "./data/user-cart.json",
         JSON.stringify(updatedUserProducts)
     );
 
