@@ -1,10 +1,10 @@
+
+import { API_PRODUCTS_FILE_LOCATION, API_USER_CART_LOCATION } from '../../../frontend/src/app/app.apiRoutes.js'
 const fs = require('node:fs/promises');
-import fs from 'fs/promises';
-import { API_PRODUCTS_FILE_LOCATION, API_USER_CART_LOCATION } from './constants';
 
 export async function handler(event, context) {
     try {
-        const { productId, amount } = JSON.parse(event.body);
+        const { productId, amount } = JSON.parse(event.body);  // Destructure productId and amount from the request body
 
         if (!amount || amount <= 0) {
             return {
