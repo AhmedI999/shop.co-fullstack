@@ -1,5 +1,4 @@
 const fs = require('node:fs/promises');
-import fs from 'node:fs/promises';
 
 // Path to the temporary user cart file
 const tempUserCartPath = '/tmp/user-cart.json';
