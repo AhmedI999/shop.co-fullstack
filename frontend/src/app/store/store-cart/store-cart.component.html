@@ -1,1 +1,31 @@
-<p>store-cart works!</p>
+<app-nav [isLandingPage]="false"/>
+<app-horizontal-separator />
+<app-navigator currentPage="cart"/>
+
+
+<div class="container mx-auto">
+  <h1 class="cart-title">Your Cart</h1>
+  <div class="row d-flex gap-5 mb-7">
+    <div class="col-10 offset-1 offset-md-0 col-md-6 col-lg-7 d-flex flex-column gap-3 rounded-1 p-4 mt-5 mb-7 scrollable-container"
+         style="border: 1px solid rgba(0, 0, 0, 0.10);"
+    >
+      @for (item of userCart(); track item.id){
+        <app-cart-item [cartItem]="item"/>
+      }
+    </div>
+    <div class="col-10 offset-1 offset-md-0 col-md-5 col-lg-4">
+      <div class="d-flex flex-column gap-3 rounded-1 p-4 mt-5 mb-7 scrollable-container"
+           style="border: 1px solid rgba(0, 0, 0, 0.10);"
+      >
+        <app-cart-order />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-10 offset-1 mb-5">
+      <app-news-letter />
+    </div>
+  </div>
+</div>

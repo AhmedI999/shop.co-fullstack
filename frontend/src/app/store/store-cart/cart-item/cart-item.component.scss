@@ -1,0 +1,125 @@
+/* Main container styles */
+.cart-item {
+  border: none;
+  background-color: #f8f9fa;
+  position: relative;
+}
+
+.product-image {
+  max-width: 150%;
+}
+
+/* Card body adjustments */
+.card-body h5 {
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem; /* Reduced slightly for better scaling */
+}
+
+.card-text {
+  font-size: 1.7rem; /* Reduced slightly */
+}
+
+.card-text.price {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #000;
+}
+
+/* Quantity Selector Styling */
+.quantity-selector .btn {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  padding: 0.5rem;
+  background-color: #d1d1d1;
+  width: fit-content;
+  font-size: 1.4rem;
+}
+
+.btn-minus,
+.btn-plus {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+#delete-btn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 2rem;
+}
+
+#delete-btn:hover {
+  color: darkred;
+}
+@media (max-width: 75em) {
+  .card-body h5 {
+    font-size: 1.6rem;
+  }
+
+  .card-text {
+    font-size: 1.4rem;
+  }
+
+  .card-text.price {
+    font-size: 1.4rem;
+  }
+  #delete-btn {
+    font-size: 1.6rem;
+  }
+  .product-image {
+    max-width: 160%;
+    height: auto;
+  }
+}
+@media (max-width: 62em) {
+  .product-image {
+    max-width: 80%;
+  }
+  .card-body h5 {
+    font-size: 1.8rem;
+  }
+
+  .card-text {
+    font-size: 1.6rem;
+  }
+
+  .card-text.price {
+    font-size: 1.6rem;
+  }
+  #delete-btn {
+    font-size: 2.4rem;
+    position: absolute;
+    top: 84%;
+    right: 5%;
+  }
+  .quantity-selector {
+    margin-left: 3.6rem;
+  }
+}
+@media (max-width: 576px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: center;
+  }
+  .product-image {
+    max-width: 80px;
+  }
+  .product-image {
+    width: 50%;
+  }
+  #delete-btn {
+    bottom: -20%;
+    right: 5%;
+  }
+}

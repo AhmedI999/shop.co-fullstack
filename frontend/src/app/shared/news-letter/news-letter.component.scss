@@ -1,0 +1,47 @@
+.news-letter-header {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+.news-letter-form{
+  position: relative;
+}
+.form-control::placeholder {
+  padding-left: 1rem;
+}
+.email-icon{
+  position: absolute;
+  top: 13%;
+  left: 3%;
+  color: #333333;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.btn-subscribe {
+  font-size: 1.4rem;
+}
+.btn-subscribe:hover {
+  color: #333333;
+}
+@media (max-width: 75em) {
+  .news-letter-header {
+    font-size: 2.2rem;
+  }
+
+}
+@media (max-width: 62.5em) {
+  .news-letter-header {
+    font-size: 1.6rem;
+  }
+}
+@media (max-width: 48em) {
+  .news-letter-header {
+    font-size: 1rem;
+  }
+  .form-control::placeholder {
+    padding-left: .8rem;
+  }
+  .btn-subscribe {
+    font-size: 1rem;
+  }
+}

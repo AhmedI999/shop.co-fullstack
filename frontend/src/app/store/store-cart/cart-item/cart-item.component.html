@@ -1,0 +1,40 @@
+<div class="cart-item">
+  <div class="row align-items-center justify-content-between py-4 py-lg-0">
+    <!-- Product Image -->
+    <div class="d-flex align-items-center col-md-10 ms-md-0 col-lg-2 ms-lg-5 justify-content-center">
+      <img [src]="API_IMAGE_PATH + cartItem().image.src" class="img-fluid rounded-start product-image" [alt]="cartItem().image.alt">
+    </div>
+    <!-- Product Details -->
+    <div class="col-10 col-lg-6 offset-2 offset-lg-0 py-4">
+      <!-- Product Details -->
+      <div class="card-body">
+        <h5 class="card-title">{{ cartItem().details.title }}</h5>
+        <p class="card-text">
+          <span>Color: {{ cartItem().details.colors[0] }}</span>
+        </p>
+        <p class="card-text price">$ {{ cartItem().details.price }}</p>
+      </div>
+    </div>
+    <!-- Quantity Details -->
+    <div class="col-10 col-lg-2">
+      <!-- Quantity Selector -->
+      <div class="quantity-container d-flex flex-lg-column justify-content-between align-items-center p-3 justify-content-lg-end align-items-lg-end p-lg-4">
+        <!-- Delete Icon -->
+        <button class="btn btn-outline-danger ms-lg-3 p-lg-3" id="delete-btn">
+          <fa-icon [icon]="faTrash"/>
+        </button>
+        <div class="quantity-selector mt-lg-5">
+          <div class="selector-container quantity">
+            <button type="button" id="minus-btn" class="btn-minus">
+              <fa-icon [icon]="faMinus" />
+            </button>
+            <span class="quantity mx-2">{{ cartItem().amount }}</span>
+            <button type="button" id="plus-btn" class="btn-plus">
+              <fa-icon [icon]="faPlus" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

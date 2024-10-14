@@ -41,10 +41,8 @@ app.get("/products/:id", async (req, res) => {
 
 app.get("/user-cart", async (req, res) => {
   const fileContent = await fs.readFile("./data/user-cart.json");
-
   const userCart = JSON.parse(fileContent);
-
-  res.status(200).json({ userCart });
+  res.status(200).json({ products: userCart });
 });
 
 app.put("/user-cart", async (req, res) => {

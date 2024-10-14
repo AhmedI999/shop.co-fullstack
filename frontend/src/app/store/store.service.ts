@@ -14,8 +14,7 @@ import {
 })
 export class StoreService {
   private httpClient = inject(HttpClient);
-  private userProducts = signal<Product[]>([]);
-  loadedUserProducts = this.userProducts.asReadonly();
+  private userCart = signal<Product[]>([]);
 
   loadAvailableProducts() {
     return this.fetchProducts(
@@ -34,22 +33,17 @@ export class StoreService {
   loadUserCart() {
     return this.fetchProducts(API_GET_USER_CART_PATH,
       'Something went wrong fetching the user cart. please try again later.')
-      .pipe(
-        tap({
-          next: (userProducts) => this.userProducts.set(userProducts),
-        })
-      );
   }
 
   addProductToUserCart(product: Product) {
-    const preCart = this.userProducts();
+    const preCart = this.userCart();
 
     const productAlreadyExists = preCart.some(p => p.id === product.id);
     if (!productAlreadyExists) {
-      this.userProducts.update(prevProducts => [...prevProducts, product]);
+      this.userCart.update(prevProducts => [...prevProducts, product]);
     }
     if (productAlreadyExists) {
-      this.userProducts.update(prevProducts => {
+      this.userCart.update(prevProducts => {
         return prevProducts.map(p => p.id === product.id ? { ...p, amount: product.amount } : p);
       });
     }
@@ -60,19 +54,19 @@ export class StoreService {
     })
       .pipe(
         catchError(err => {
-          this.userProducts.set(preCart);  // Revert to previous state on error
+          this.userCart.set(preCart);  // Revert to previous state on error
           return throwError(() => new Error('Failed to add selected product to the cart.'));
         })
       );
   }
 
   removeUserProduct(product: Product) {
-    const prevPlaces = this.userProducts();
+    const prevPlaces = this.userCart();
 
     const isPlaceExists = prevPlaces.some(p => p.id === product.id);
 
     if (isPlaceExists) {
-      this.userProducts.update(currentProducts =>
+      this.userCart.update(currentProducts =>
         currentProducts.filter(p => p.id != product.id));
     }
     if (!isPlaceExists) {
@@ -82,7 +76,7 @@ export class StoreService {
     return this.deleteProduct(API_DELETE_USER_PRODUCT_PATH, product.id)
       .pipe(
         catchError(err => {
-          this.userProducts.set(prevPlaces);
+          this.userCart.set(prevPlaces);
           return throwError(() => new Error('Failed to delete the product. 404 Not found'));
         })
       );

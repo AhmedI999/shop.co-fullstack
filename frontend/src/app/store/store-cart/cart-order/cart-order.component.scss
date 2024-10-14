@@ -1,0 +1,57 @@
+.card-title {
+  font-size: 1.6rem;
+}
+
+.sub-content {
+  letter-spacing: .5px;
+
+  &__header {
+    font-size: 2rem;
+  }
+  &__price {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+}
+
+.total {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+// checkout form
+.checkout-form{
+  position: relative;
+}
+.form-control {
+  padding-left: -2rem !important;
+}
+.form-control::placeholder {
+  padding-left: 1rem;
+  font-size: 1.6rem;
+}
+.discount-icon{
+  position: absolute;
+  top: 9%;
+  left: 2%;
+  color: #333333;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+.btn-apply {
+  font-size: 1.2rem;
+  letter-spacing: .7px;
+}
+.btn-checkout {
+  font-size: 1.4rem;
+}
+//
+@media (max-width: 62em) {
+  .summary {
+    font-size: 40%;
+  }
+  .form-control::placeholder {
+    padding-left: 1rem;
+    font-size: 1.2rem;
+  }
+}
