@@ -37,6 +37,7 @@ export class StoreItemPageCardComponent implements OnInit{
   isAdding = signal(false);
   isSuccessfullyAdded = signal(false)
   error = signal('');
+  selectedColor = signal<string | null>(null);
 
   private calculateStars(): void {
     const rating = parseFloat(this.product().rating);
@@ -61,13 +62,21 @@ export class StoreItemPageCardComponent implements OnInit{
 
   onAddToCartClicked() {
     // creating user product
+    if (!this.selectedColor()) {
+      this.error.set('Please select a color first');
+      return;
+    }
     const userProduct: Product = {
       id: this.product().id,
       image: this.product().image,
       rating: this.product().rating,
-      details: this.product().details,
+      details: {
+        ...this.product().details,
+        colors:[this.selectedColor()!]
+      },
       amount: this.quantity() || 0,
     }
+    console.log(`Object before saving to DB -> ${userProduct.details.colors}`);
     // saving item to cart
     this.isAdding = signal(true);
     const addingToCartSubscription = this.storeService.addProductToUserCart(userProduct)
@@ -88,4 +97,11 @@ export class StoreItemPageCardComponent implements OnInit{
     this.destroyRef.onDestroy(() => addingToCartSubscription.unsubscribe());
   }
 
+  onColorClicked(color: string) {
+    this.selectedColor.set(color);
+  }
+
+  isSelected(color: string): boolean {
+    return this.selectedColor() === color;
+  }
 }

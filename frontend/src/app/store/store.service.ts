@@ -15,6 +15,11 @@ import {
 export class StoreService {
   private httpClient = inject(HttpClient);
   private userCart = signal<Product[]>([]);
+  private cartTotal = signal<number>(0);  // Signal to track total cart amount
+
+  getCartTotal() {
+    return this.cartTotal();
+  }
 
   loadAvailableProducts() {
     return this.fetchProducts(
@@ -25,14 +30,20 @@ export class StoreService {
 
   loadProductById(productId: string) {
     return this.fetchProduct(
-      API_GET_PRODUCT_PATH + `/${productId}`,
-      'Something went wrong fetching the available products. please try again later.'
-    );
+      `${API_GET_PRODUCT_PATH}/${productId}`,
+    'Something went wrong fetching the available products. please try again later.'
+  );
   }
 
   loadUserCart() {
     return this.fetchProducts(API_GET_USER_CART_PATH,
       'Something went wrong fetching the user cart. please try again later.')
+      .pipe(
+        tap(products => {
+          this.userCart.set(products);
+          this.calculateCartTotal();  // Recalculate total after loading cart
+        })
+      );
   }
 
   addProductToUserCart(product: Product) {
@@ -44,13 +55,18 @@ export class StoreService {
     }
     if (productAlreadyExists) {
       this.userCart.update(prevProducts => {
-        return prevProducts.map(p => p.id === product.id ? { ...p, amount: product.amount } : p);
+        return prevProducts.map(p => p.id === product.id ? { ...p,
+          details: {
+            ...p.details,
+            colors: product.details.colors,
+          },amount: product.amount } : p);
       });
     }
-
+    this.calculateCartTotal();
     return this.httpClient.put(API_EDIT_USER_CART_PATH, {
       productId: product.id,
-      amount: product.amount  // <-- Include amount here
+      amount: product.amount,  // <-- Include amount here
+      chosenColors: product.details.colors
     })
       .pipe(
         catchError(err => {
@@ -61,39 +77,36 @@ export class StoreService {
   }
 
   removeUserProduct(product: Product) {
-    const prevPlaces = this.userCart();
+    const prevCart = this.userCart();
+    const isProductExists = prevCart.some(p => p.id === product.id);
 
-    const isPlaceExists = prevPlaces.some(p => p.id === product.id);
-
-    if (isPlaceExists) {
+    if (isProductExists) {
+      // Update cart locally
       this.userCart.update(currentProducts =>
-        currentProducts.filter(p => p.id != product.id));
+        currentProducts.filter(p => p.id !== product.id)
+      );
+      this.calculateCartTotal();  // Update the total price
     }
-    if (!isPlaceExists) {
-      console.error("error can't delete the selected product.");
-    }
-
-    return this.deleteProduct(API_DELETE_USER_PRODUCT_PATH, product.id)
+    this.calculateCartTotal();
+    return this.httpClient.delete<{ userCart: Product[] }>(`${API_DELETE_USER_PRODUCT_PATH}/${product.id}`)
       .pipe(
         catchError(err => {
-          this.userCart.set(prevPlaces);
-          return throwError(() => new Error('Failed to delete the product. 404 Not found'));
+          // On error, revert to the previous cart state
+          this.userCart.set(prevCart);
+          return throwError(() => new Error('Failed to delete the product.'));
         })
       );
   }
 
-  updatePaginatedProducts(currentPage: number,
-                          productsPerPage: number,
-                          allProducts: WritableSignal<Product[] | undefined>): Product[] | undefined
-  {
-    if (!allProducts()) return undefined;
-
-    const startIndex = currentPage * productsPerPage;
-    const endIndex = startIndex + productsPerPage;
-
-    return allProducts()!.slice(startIndex, endIndex);
+  clearUserCart() {
+    return this.httpClient.delete<{ message: string }>(API_DELETE_USER_PRODUCT_PATH)
+      .pipe(
+        catchError(err => {
+          console.error('Failed to clear cart:', err);
+          return throwError(() => new Error('Failed to clear cart.'));
+        })
+      );
   }
-
 
   private fetchProducts(url: string, errorMessage: string) {
     return this.httpClient
@@ -124,5 +137,10 @@ export class StoreService {
 
   private deleteProduct(url: string, productId: string){
     return this.httpClient.delete(`${url}/${productId}`);
+  }
+  // Method to calculate total cart amount
+  private calculateCartTotal() {
+    const total = this.userCart().reduce((acc, item) => acc + (+item.details.price * item.amount), 0);
+    this.cartTotal.set(total);
   }
 }

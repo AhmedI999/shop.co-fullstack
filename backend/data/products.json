@@ -24,7 +24,10 @@
       "title": "Polo with Tipping Details",
       "price": "350",
       "description": "This Polo t-shirt with Tipping Details which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
-      "colors": [ "brown", "blue"]
+      "colors": [
+        "brown",
+        "blue"
+      ]
     }
   },
   {
@@ -38,7 +41,11 @@
       "title": "Black Striped T-shirt",
       "price": "300",
       "description": "This black Striped shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
-      "colors": [ "white", "orange", "pink"]
+      "colors": [
+        "white",
+        "orange",
+        "pink"
+      ]
     }
   },
   {
@@ -52,7 +59,9 @@
       "title": "Skinny fit jeans",
       "price": "200",
       "description": "This Skinny fit jeans which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
-      "colors": [ "blue"]
+      "colors": [
+        "blue"
+      ]
     }
   },
   {
@@ -66,7 +75,9 @@
       "title": "Checkered Shirt",
       "price": "180",
       "description": "This checkered Shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
-      "colors": [ "blue-white-red"]
+      "colors": [
+        "blue-white-red"
+      ]
     }
   },
   {
@@ -80,7 +91,10 @@
       "title": "Vertical Striped Shirt",
       "price": "212",
       "description": "This vertical Striped which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
-      "colors": [ "green", "blue"]
+      "colors": [
+        "green",
+        "blue"
+      ]
     }
   },
   {
@@ -94,7 +108,11 @@
       "title": "Courage Graphic T-shirt",
       "price": "145",
       "description": "This courage graphic t-shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
-      "colors": [ "orange", "black", "green"]
+      "colors": [
+        "orange",
+        "black",
+        "green"
+      ]
     }
   },
   {
@@ -108,7 +126,9 @@
       "title": "Loose fit bermuda shorts",
       "price": "80",
       "description": "This loose fit bermuda shorts provide comfort and stylish",
-      "colors": [ "blue"]
+      "colors": [
+        "blue"
+      ]
     }
   },
   {
@@ -122,7 +142,9 @@
       "title": "One Life Graphic T-shirt",
       "price": "260",
       "description": "This graphic t-shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
-      "colors": [ "green"]
+      "colors": [
+        "green"
+      ]
     }
   }
 ]

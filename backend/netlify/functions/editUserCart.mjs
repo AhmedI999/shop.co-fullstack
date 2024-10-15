@@ -4,8 +4,10 @@ const fs = require('node:fs/promises');
 
 export async function handler(event, context) {
     try {
-        const { productId, amount } = JSON.parse(event.body);  // Destructure productId and amount from the request body
+        // Destructure productId, amount, and chosenColors from the request body
+        const { productId, amount, chosenColors } = JSON.parse(event.body);
 
+        // Validate amount
         if (!amount || amount <= 0) {
             return {
                 statusCode: 400,
@@ -18,6 +20,7 @@ export async function handler(event, context) {
         const productData = JSON.parse(fileContent);
         const product = productData.find((p) => p.id === productId);
 
+        // Check if the product exists
         if (!product) {
             return {
                 statusCode: 404,
@@ -25,7 +28,7 @@ export async function handler(event, context) {
             };
         }
 
-        // Read user cart data from temporary file
+        // Read user cart data from a temporary file
         const tempUserCartPath = '/tmp/user-cart.json';
 
         let userProductsData = [];
@@ -44,16 +47,17 @@ export async function handler(event, context) {
         const existingProductIndex = userProductsData.findIndex((p) => p.id === product.id);
 
         if (existingProductIndex !== -1) {
-            // If it exists, update the amount
+            // If it exists, update the amount and chosenColors
             const existingProduct = userProductsData[existingProductIndex];
             updatedUserProducts = [...userProductsData];
             updatedUserProducts[existingProductIndex] = {
                 ...existingProduct,
-                amount: existingProduct.amount + amount,  // Add new amount to existing amount
+                amount: +amount, // Set the new amount
+                details: { ...existingProduct.details, colors: chosenColors }, // Update chosen colors
             };
         } else {
-            // If it doesn't exist, add the product with the given amount
-            updatedUserProducts = [...userProductsData, { ...product, amount }];
+            // If it doesn't exist, add the product with the given amount and chosen colors
+            updatedUserProducts = [...userProductsData, { ...product, amount, details: { colors: chosenColors } }];
         }
 
         // Write the updated user products back to the temporary file

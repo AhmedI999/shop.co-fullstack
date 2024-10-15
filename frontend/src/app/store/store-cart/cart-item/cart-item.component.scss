@@ -26,9 +26,10 @@
 }
 
 /* Quantity Selector Styling */
+
 .quantity-selector .btn {
   border-radius: 50%;
-  width: 32px;
+  width: 35px;
   height: 32px;
 }
 
@@ -119,7 +120,7 @@
     width: 50%;
   }
   #delete-btn {
-    bottom: -20%;
+    top: 75%;
     right: 5%;
   }
 }

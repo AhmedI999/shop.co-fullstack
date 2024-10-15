@@ -30,9 +30,12 @@
         <h5>Available Colors:</h5>
         <div class="d-flex justify-content-center">
           @for (color of product().details.colors; track $index) {
-            <div class="color-box me-2"
-                 [style.background-color]="color"
-                 style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ccc;"></div>
+            <button class="color-box me-2"
+                    [ngClass]="{'selected': isSelected(color)}"
+              [style.background-color]="color"
+              style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ccc;"
+              (click)="onColorClicked(color)">
+            </button>
           }
         </div>
       </div>
@@ -72,6 +75,12 @@
           <app-message-alert
             [message]="product().details.title + ' is added to cart'"
             type="success"
+          ></app-message-alert>
+        }
+        @if (error() === 'Please select a color first') {
+          <app-message-alert
+            [message]="product().details.title + ' needs a color first'"
+            type="failure"
           ></app-message-alert>
         }
       </div>

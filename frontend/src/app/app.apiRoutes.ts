@@ -81,7 +81,7 @@ export const API_EDIT_USER_CART_PATH
   = 'http://localhost:3000/user-cart';
 
 export const API_DELETE_USER_PRODUCT_PATH
-  = 'http://localhost:3000/user-products';
+  = 'http://localhost:3000/user-cart';
 
 export const API_IMAGE_PATH
   = 'http://localhost:3000/';

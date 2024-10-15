@@ -5,13 +5,16 @@
 .news-letter-form{
   position: relative;
 }
+.news-letter-input{
+  margin-left: 1.6rem;
+}
 .form-control::placeholder {
   padding-left: 1rem;
 }
-.email-icon{
+.email-icon {
   position: absolute;
   top: 13%;
-  left: 3%;
+  left: 2%;
   color: #333333;
   font-size: 1.6rem;
   cursor: pointer;
@@ -25,23 +28,25 @@
 }
 @media (max-width: 75em) {
   .news-letter-header {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
+    padding: 0;
+    text-wrap: balance;
   }
-
 }
 @media (max-width: 62.5em) {
   .news-letter-header {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 }
 @media (max-width: 48em) {
   .news-letter-header {
-    font-size: 1rem;
+    font-size: 1.6rem;
+    font-weight: 900;
   }
   .form-control::placeholder {
     padding-left: .8rem;
   }
   .btn-subscribe {
-    font-size: 1rem;
+    font-size: 1.4rem;
   }
 }

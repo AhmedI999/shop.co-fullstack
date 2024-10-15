@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   imports: [],
   template: `
     <div class="d-flex justify-content-center">
-      <hr class="border border-dark border-1 w-75" style="opacity: 30%">
+      <hr class="border border-dark border-1" style="opacity: 30%; width: 95%">
     </div>
   `,
 })

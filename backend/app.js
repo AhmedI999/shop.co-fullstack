@@ -12,11 +12,12 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); // allow all domains
-  res.setHeader("Access-Control-Allow-Methods", "GET, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Methods", "GET, PUT, DELETE, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   next();
 });
+
 
 app.get("/products", async (req, res) => {
   await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -28,6 +29,7 @@ app.get("/products", async (req, res) => {
   res.status(200).json({ products: productData });
 });
 app.get("/products/:id", async (req, res) => {
+  res.setHeader("Access-Control-Allow-Methods", "GET");
   await new Promise((resolve) => setTimeout(resolve, 3000));
   const fileContent = await fs.readFile("./data/products.json");
   const productData = JSON.parse(fileContent);
@@ -38,6 +40,41 @@ app.get("/products/:id", async (req, res) => {
   else  res.status(404).json({ message: "Product not found" });
 });
 
+app.delete("/user-cart/:id", async (req, res) => {
+  res.setHeader("Access-Control-Allow-Methods", "DELETE");
+  const productId = req.params.id;
+  // Read the user cart data
+  const userCartFileContent = await fs.readFile("./data/user-cart.json");
+  const userCartData = JSON.parse(userCartFileContent);
+
+  // Find the product to delete
+  const updatedCart = userCartData.filter(p => p.id !== productId);
+
+  // If no changes were made (product not found), return an error
+  if (userCartData.length === updatedCart.length) {
+    return res.status(404).json({ message: "Product not found in cart" });
+  }
+
+  // Write the updated cart back to the file
+  await fs.writeFile(
+      "./data/user-cart.json",
+      JSON.stringify(updatedCart)
+  );
+
+  res.status(200).json({ message: "Product removed", userCart: updatedCart });
+});
+app.delete("/user-cart", async (req, res) => {
+  res.setHeader("Access-Control-Allow-Methods", "DELETE");
+  try {
+    // Clear the user cart by writing an empty array to the user-cart.json file
+    await fs.writeFile("./data/user-cart.json", JSON.stringify([]));
+
+    res.status(200).json({ message: "Cart cleared successfully."});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to clear the cart." });
+  }
+});
 
 app.get("/user-cart", async (req, res) => {
   const fileContent = await fs.readFile("./data/user-cart.json");
@@ -46,7 +83,7 @@ app.get("/user-cart", async (req, res) => {
 });
 
 app.put("/user-cart", async (req, res) => {
-  const { productId, amount } = req.body;
+  const { productId, amount, chosenColors } = req.body;
 
   if (!amount || amount <= 0) {
     return res.status(400).json({ error: "Invalid amount." });
@@ -66,7 +103,7 @@ app.put("/user-cart", async (req, res) => {
   // Check if the product already exists in the cart
   let updatedUserProducts = userProductsData.map((p) => {
     if (p.id === product.id) {
-      return { ...p, amount: p.amount + amount };  // Add the new amount to the existing amount
+      return { ...p, details: {...p.details, colors: chosenColors },amount: +amount };  // Add the new amount to the existing amount
     }
     return p;
   });
