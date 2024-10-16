@@ -36,7 +36,7 @@ export class StoreService {
     'Something went wrong fetching the available products. please try again later.'
   );
   }
-
+  // final load cart
   loadUserCart(isNetlify: boolean = false) {
     if (isNetlify) {
       const cartFromLocalStorage = localStorage.getItem('userCart');
@@ -61,46 +61,57 @@ export class StoreService {
       );
   }
 
-
   addProductToUserCart(product: Product, isNetlify: boolean = false) {
     const preCart = this.userCart(); // Store current state of the cart
 
     const productAlreadyExists = preCart.some(p => p.id === product.id);
+
+    // If product doesn't exist in cart, add it
     if (!productAlreadyExists) {
       this.userCart.update(prevProducts => [...prevProducts, product]);
     } else {
-        this.userCart.update(prevProducts => {
-          let newAmount = 0;
-          if (isNetlify) {
-            newAmount = product.isUpdate ? product.amount
-              : (prevProducts.find(p => p.id === product.id)?.amount!) + product.amount;
-            console.log(`New amount: ${newAmount}`)
-          } else {
-            newAmount = product.amount
+      // If product exists, update its amount and other details
+      this.userCart.update(prevProducts => {
+        return prevProducts.map(p => {
+          if (p.id === product.id) {
+            // Calculate the new amount
+            let newAmount = 0;
+            if (isNetlify) {
+              // For Netlify, use isUpdate to determine if the amount should replace or add
+              newAmount = product.isUpdate ? product.amount : p.amount + product.amount;
+              console.log(`Netlify New amount: ${newAmount}`);
+            } else {
+              // For local, simply update the amount directly as per product data
+              newAmount = product.amount;
+            }
+
+            // Return updated product with new amount and other details
+            return {
+              ...p,
+              details: {
+                ...p.details,
+                colors: product.details.colors,
+                isUpdate: product.isUpdate,
+              },
+              amount: newAmount
+            };
           }
-          return prevProducts.map(p => p.id === product.id ? { ...p,
-            details: {
-              ...p.details,
-              colors: product.details.colors,
-              isUpdate: product.isUpdate,
-            },amount: newAmount } : p);
+          return p;
         });
-      }
+      });
+    }
 
-    this.calculateCartTotal(); // Recalculate the total
+    this.calculateCartTotal(); // Recalculate the total after update
 
-    // If Netlify is true, save to localStorage and stop further execution
+    // If Netlify, update localStorage and stop further execution
     if (isNetlify) {
       const updatedCart = this.userCart();  // Get the updated cart
-      console.log('Updated cart:', this.userCart());
+      console.log('Updated cart before saving to localStorage:', updatedCart);
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
-      return EMPTY; // returning empty observable to signify no further action
+      return EMPTY; // Return empty observable to signify no further action
     }
 
     // For local development and non-Netlify environments, proceed with the HTTP request
-    //   console.log(preCart.find(p => p.id === product.id)?.amount);
-    //   console.log(product.amount);
-    //   console.log((preCart.find(p => p.id === product.id)?.amount || 0 ) + product.amount);
     return this.httpClient.put<{ userProducts: Product[] }>(API_EDIT_USER_CART_PATH, {
       productId: product.id,
       amount: product.amount,
@@ -109,15 +120,13 @@ export class StoreService {
     })
       .pipe(
         catchError(err => {
-          console.error(err);
-          this.userCart.set(preCart);  // Revert to previous state on error
+          console.error('Error in addProductToUserCart:', err);
+          // If the request fails, revert cart to the previous state
+          this.userCart.set(preCart);
           return throwError(() => new Error('Failed to add selected product to the cart.'));
         })
       );
   }
-
-
-
 
   removeUserProduct(product: Product) {
     const prevCart = this.userCart();
