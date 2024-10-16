@@ -94,7 +94,7 @@ export class StoreService {
     // For local development and non-Netlify environments, proceed with the HTTP request
     return this.httpClient.put<{ userProducts: Product[] }>(API_EDIT_USER_CART_PATH, {
       productId: product.id,
-      amount: product.isUpdate ? product.amount : (preCart.find(p => p.id === product.id)?.amount || 0) + product.amount,
+      amount: product.amount,
       chosenColors: product.details.colors,
       isUpdate: product.isUpdate,
     })
