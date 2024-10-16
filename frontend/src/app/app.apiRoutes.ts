@@ -56,7 +56,7 @@ export const API_GET_USER_CART_PATH
   = '/.netlify/functions/getUserCart';
 
 export const API_EDIT_USER_CART_PATH
-  = '/.netlify/functions/editUserCart';
+  = '/.netlify/functions/editUserCart.mjs';
 
 export const API_DELETE_USER_PRODUCT_PATH
   = '/.netlify/functions/deleteUserCart';

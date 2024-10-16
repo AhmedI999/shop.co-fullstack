@@ -1,4 +1,4 @@
-/*  export async function handler(event, context) {
+export async function handler(event, context) {
     try {
         const { productId, amount, chosenColors, isUpdate } = JSON.parse(event.body);
 
@@ -39,9 +39,3 @@
         };
     }
 }
-
-
-
-
-
- */
