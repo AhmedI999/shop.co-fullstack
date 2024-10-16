@@ -139,6 +139,9 @@ export class StoreService {
     }
     // If it's a Netlify-hosted environment, update localStorage and return EMPTY
     if (isHostNetlify()) {
+      this.userCart.update(currentProducts =>
+        currentProducts.filter(p => p.id !== product.id)
+      );
       const updatedCart = this.userCart();  // Get the updated cart
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
       this.calculateCartTotal();
@@ -186,6 +189,7 @@ export class StoreService {
         })
       );
   }
+
   private fetchProduct(url: string, errorMessage: string) {
     return this.httpClient
       .get<{ product: Product }>(url)
@@ -200,9 +204,6 @@ export class StoreService {
       );
   }
 
-  private deleteProduct(url: string, productId: string){
-    return this.httpClient.delete(`${url}/${productId}`);
-  }
   // Method to calculate total cart amount
   private calculateCartTotal() {
     const total = this.userCart().reduce((acc, item) => acc + (+item.details.price * item.amount), 0);
