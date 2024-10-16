@@ -54,7 +54,6 @@ export class CartItemComponent implements OnInit{
         console.log('Before emitting' + value.userCart);
       },
     });
-
   }
 }
 

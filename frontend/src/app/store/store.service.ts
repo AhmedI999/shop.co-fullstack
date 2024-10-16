@@ -136,24 +136,27 @@ export class StoreService {
         currentProducts.filter(p => p.id !== product.id)
       );
       this.calculateCartTotal();  // Update the total price
+
+      // Log the updated cart
+      const updatedCart = this.userCart();
+      console.log('Updated cart after removal:', updatedCart);
+
+      // Handle Netlify case
+      if (isHostNetlify()) {
+        localStorage.setItem('userCart', JSON.stringify(updatedCart));
+        return of({ userCart: updatedCart }); // Return observable for Netlify
+      }
     }
-    // If it's a Netlify-hosted environment, update localStorage and return EMPTY
-    if (isHostNetlify()) {
-      const updatedCart = this.userCart();  // Get the updated cart
-      localStorage.setItem('userCart', JSON.stringify(updatedCart));
-      this.calculateCartTotal();
-      return EMPTY; // No need for further HTTP requests
-    } else {
-      this.calculateCartTotal();
-      return this.httpClient.delete<{ userCart: Product[] }>(`${API_DELETE_USER_PRODUCT_PATH}/${product.id}`)
-        .pipe(
-          catchError(err => {
-            // On error, revert to the previous cart state
-            this.userCart.set(prevCart);
-            return throwError(() => new Error('Failed to delete the product.'));
-          })
-        );
-    }
+
+    // For non-Netlify environments, proceed with the HTTP request
+    return this.httpClient.delete<{ userCart: Product[] }>(`${API_DELETE_USER_PRODUCT_PATH}/${product.id}`)
+      .pipe(
+        catchError(err => {
+          // On error, revert to the previous cart state
+          this.userCart.set(prevCart);
+          return throwError(() => new Error('Failed to delete the product.'));
+        })
+      );
   }
 
   clearUserCart() {
