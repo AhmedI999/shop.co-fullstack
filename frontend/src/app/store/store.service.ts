@@ -139,9 +139,6 @@ export class StoreService {
     }
     // If it's a Netlify-hosted environment, update localStorage and return EMPTY
     if (isHostNetlify()) {
-      this.userCart.update(currentProducts =>
-        currentProducts.filter(p => p.id !== product.id)
-      );
       const updatedCart = this.userCart();  // Get the updated cart
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
       this.calculateCartTotal();

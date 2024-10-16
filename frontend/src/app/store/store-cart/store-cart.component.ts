@@ -38,8 +38,8 @@ export class StoreCartComponent implements OnInit{
     this.isFetching.set(true);
     const cartItemsSubscription = this.storeService.loadUserCart()
       .subscribe({
-        next: item => {
-          this.userCart.set(item);
+        next: items => {
+          this.userCart.set(items);
         },
         complete: () => this.isFetching.set(false),
         error: (err: Error) => {
@@ -52,6 +52,7 @@ export class StoreCartComponent implements OnInit{
 
   onItemDeleted(updatedCart: Product[]) {
     this.userCart.set(updatedCart);
+    console.log(updatedCart);
   }
 
   onCartCleared() {

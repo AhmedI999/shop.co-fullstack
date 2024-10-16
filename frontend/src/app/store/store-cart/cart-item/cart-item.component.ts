@@ -51,6 +51,7 @@ export class CartItemComponent implements OnInit{
     this.storeService.removeUserProduct(this.cartItem()).subscribe({
       next: value => this.onDeleteItem.emit(value.userCart),
     });
+
   }
 }
 
