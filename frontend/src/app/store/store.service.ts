@@ -70,7 +70,7 @@ export class StoreService {
           let newAmount = 0;
           if (isNetlify) {
             newAmount = product.isUpdate ? product.amount
-              : (+prevProducts.find(p => p.id === product.id)?.amount!) + product.amount;
+              : (+prevProducts.find(p => p.id === product.id)?.amount!) + +product.amount;
             console.log(`New amount: ${newAmount}`)
           } else {
             newAmount = product.amount
