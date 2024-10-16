@@ -1,4 +1,4 @@
-import {inject, Injectable, signal, WritableSignal} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Product} from './store.model';
 import {catchError, EMPTY, map, of, tap, throwError} from 'rxjs';
@@ -159,16 +159,16 @@ export class StoreService {
       // Clear the cart locally and update localStorage
       this.userCart.set([]);  // Set cart to an empty array
       localStorage.setItem('userCart', JSON.stringify([]));  // Clear local storage
-      this.calculateCartTotal();  // Recalculate the total
       return EMPTY; // No further action needed for Netlify-hosted environment
+    } else {
+      return this.httpClient.delete<{ message: string }>(API_DELETE_USER_CART_PATH)
+        .pipe(
+          catchError(err => {
+            console.error('Failed to clear cart:', err);
+            return throwError(() => new Error('Failed to clear cart.'));
+          })
+        );
     }
-    return this.httpClient.delete<{ message: string }>(API_DELETE_USER_CART_PATH)
-      .pipe(
-        catchError(err => {
-          console.error('Failed to clear cart:', err);
-          return throwError(() => new Error('Failed to clear cart.'));
-        })
-      );
   }
 
   private fetchProducts(url: string, errorMessage: string) {
