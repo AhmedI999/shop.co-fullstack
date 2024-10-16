@@ -40,16 +40,19 @@ export class StoreService {
   loadUserCart(isNetlify: boolean = false) {
     if (isNetlify) {
       const cartFromLocalStorage = localStorage.getItem('userCart');
-      // if (!cartFromLocalStorage) localStorage.setItem('userCart', JSON.stringify(Array.from(new Product())));
-      const parsedCart = JSON.parse(cartFromLocalStorage!);
-      this.userCart.set(parsedCart);
-      this.calculateCartTotal();
-      return of(parsedCart);  // Simulate rxjs observable
+
+      // Check if the cart is null or empty, and prepare an empty array if so
+      const parsedCart = cartFromLocalStorage ? JSON.parse(cartFromLocalStorage) : [];
+
+      this.userCart.set(parsedCart); // Set the empty array or parsed cart
+      this.calculateCartTotal(); // Recalculate the total based on the cart
+
+      return of(parsedCart);  // Return an observable of the cart
     }
 
     // Fallback to HTTP request for non-Netlify environments
     return this.fetchProducts(API_GET_USER_CART_PATH,
-      'Something went wrong fetching the user cart. please try again later.')
+      'Something went wrong fetching the user cart. Please try again later.')
       .pipe(
         tap(products => {
           this.userCart.set(products);
@@ -70,7 +73,7 @@ export class StoreService {
           let newAmount = 0;
           if (isNetlify) {
             newAmount = product.isUpdate ? product.amount
-              : (+prevProducts.find(p => p.id === product.id)?.amount!) + +product.amount;
+              : (prevProducts.find(p => p.id === product.id)?.amount!) + product.amount;
             console.log(`New amount: ${newAmount}`)
           } else {
             newAmount = product.amount
