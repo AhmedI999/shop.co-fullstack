@@ -79,7 +79,7 @@ export class StoreItemPageCardComponent implements OnInit{
     }
     // saving item to cart
     this.isAdding = signal(true);
-    const addingToCartSubscription = this.storeService.addProductToUserCart(userProduct, isHostNetlify())
+    const addingToCartSubscription = this.storeService.addProductToUserCart(userProduct)
       .subscribe({
         next: value => console.log(value),
         complete: () => {

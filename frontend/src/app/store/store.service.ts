@@ -36,9 +36,9 @@ export class StoreService {
     'Something went wrong fetching the available products. please try again later.'
   );
   }
-  // final load cart
-  loadUserCart(isNetlify: boolean = false) {
-    if (isNetlify) {
+
+  loadUserCart() {
+    if (isHostNetlify()) {
       const cartFromLocalStorage = localStorage.getItem('userCart');
 
       // Check if the cart is null or empty, and prepare an empty array if so
@@ -61,7 +61,7 @@ export class StoreService {
       );
   }
 
-  addProductToUserCart(product: Product, isNetlify: boolean = false) {
+  addProductToUserCart(product: Product) {
     const preCart = this.userCart(); // Store current state of the cart
 
     const productAlreadyExists = preCart.some(p => p.id === product.id);
@@ -76,7 +76,7 @@ export class StoreService {
           if (p.id === product.id) {
             // Calculate the new amount
             let newAmount = 0;
-            if (isNetlify) {
+            if (isHostNetlify()) {
               // For Netlify, using isUpdate to determine if the amount should replace or add
               newAmount = !product.isUpdate ? product.amount : p.amount + product.amount;
               console.log(`Netlify New amount: ${newAmount}`);

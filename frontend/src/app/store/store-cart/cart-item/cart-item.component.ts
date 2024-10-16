@@ -34,7 +34,7 @@ export class CartItemComponent implements OnInit{
       ...this.cartItem(),
       amount: this.itemAmount(),
       isUpdate: false
-    }, isHostNetlify()).subscribe();
+    }).subscribe();
 
   }
 
