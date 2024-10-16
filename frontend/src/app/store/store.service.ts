@@ -81,8 +81,12 @@ export class StoreService {
 
     // If Netlify is true, save to localStorage and stop further execution
     if (isNetlify) {
-      const updatedCart = this.userCart();  // Get the updated cart
-
+      const preCart = this.userCart();  // Get the updated cart
+      const addedProduct = preCart.find(p => p.id === product.id);
+      if (addedProduct) {
+        addedProduct.amount = addedProduct?.isUpdate ? ( addedProduct?.amount || 0 ) + addedProduct.amount : addedProduct!.amount;
+      }
+      const updatedCart = {...preCart, addedProduct}
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
       return EMPTY; // returning empty observable to signify no further action
     }
