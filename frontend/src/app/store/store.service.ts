@@ -7,7 +7,7 @@ import {
   API_DELETE_USER_PRODUCT_PATH,
   API_EDIT_USER_CART_PATH, API_GET_PRODUCT_PATH,
   API_GET_PRODUCTS_PATH,
-  API_GET_USER_CART_PATH
+  API_GET_USER_CART_PATH, isHostNetlify
 } from '../app.apiRoutes';
 import {popper} from '@popperjs/core';
 
@@ -104,7 +104,7 @@ export class StoreService {
     this.calculateCartTotal(); // Recalculate the total after update
 
     // If Netlify, update localStorage and stop further execution
-    if (isNetlify) {
+    if (isHostNetlify()) {
       const updatedCart = this.userCart();  // Get the updated cart
       console.log('Updated cart before saving to localStorage:', updatedCart);
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
