@@ -1,8 +1,3 @@
-
-import {API_USER_CART_LOCATION} from '../../../frontend/src/app/app.apiRoutes.js'
-const fs = require('node:fs/promises');
-
-
 export async function handler(event, context) {
     try {
         const { productId, amount, chosenColors, isUpdate } = JSON.parse(event.body);

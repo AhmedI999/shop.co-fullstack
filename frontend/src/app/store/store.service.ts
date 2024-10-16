@@ -74,7 +74,9 @@ export class StoreService {
               ...p.details,
               colors: product.details.colors,
               isUpdate: product.isUpdate,
-            },amount: product.amount + p.amount } : p);
+            },
+            amount: !product.isUpdate ? product.amount : (preCart.find(p => p.id === product.id)?.amount || 0) + product.amount, }
+            : p);
         });
       } else {
         this.userCart.update(prevProducts => {
