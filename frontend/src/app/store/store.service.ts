@@ -40,7 +40,7 @@ export class StoreService {
   loadUserCart(isNetlify: boolean = false) {
     if (isNetlify) {
       const cartFromLocalStorage = localStorage.getItem('userCart');
-      if (!cartFromLocalStorage) localStorage.setItem('userCart', JSON.stringify([]));
+      if (!cartFromLocalStorage) localStorage.setItem('userCart', JSON.stringify(""));
       const parsedCart = JSON.parse(cartFromLocalStorage!);
       this.userCart.set(parsedCart);
       this.calculateCartTotal();
@@ -69,8 +69,9 @@ export class StoreService {
         this.userCart.update(prevProducts => {
           let newAmount = 0;
           if (isNetlify) {
-            newAmount = product.isUpdate? product.amount
-              : ( prevProducts.find(p  => p.id === product.id)?.amount || 0) + product.amount
+            newAmount = product.isUpdate ? product.amount
+              : (prevProducts.find(p => p.id === product.id)?.amount || 0) + product.amount;
+            console.log(`New amount: ${newAmount}`)
           } else {
             newAmount = product.amount
           }
