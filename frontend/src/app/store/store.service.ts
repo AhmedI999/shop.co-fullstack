@@ -39,14 +39,12 @@ export class StoreService {
 
   loadUserCart(isNetlify: boolean = false) {
     if (isNetlify) {
-      console.log(isNetlify);
       const cartFromLocalStorage = localStorage.getItem('userCart');
-      if (cartFromLocalStorage) {
-        const parsedCart = JSON.parse(cartFromLocalStorage);
-        this.userCart.set(parsedCart);
-        this.calculateCartTotal();
-        return of(parsedCart);  // Simulate rxjs observable
-      }
+      if (!cartFromLocalStorage) localStorage.setItem('userCart', JSON.stringify([]));
+      const parsedCart = JSON.parse(cartFromLocalStorage!);
+      this.userCart.set(parsedCart);
+      this.calculateCartTotal();
+      return of(parsedCart);  // Simulate rxjs observable
     }
 
     // Fallback to HTTP request for non-Netlify environments
@@ -69,12 +67,19 @@ export class StoreService {
       this.userCart.update(prevProducts => [...prevProducts, product]);
     } else {
         this.userCart.update(prevProducts => {
+          let newAmount = 0;
+          if (isNetlify) {
+            newAmount = product.isUpdate? product.amount
+              : ( prevProducts.find(p  => p.id === product.id)?.amount || 0) + product.amount
+          } else {
+            newAmount = product.amount
+          }
           return prevProducts.map(p => p.id === product.id ? { ...p,
             details: {
               ...p.details,
               colors: product.details.colors,
               isUpdate: product.isUpdate,
-            },amount: product.amount } : p);
+            },amount: newAmount } : p);
         });
       }
 
