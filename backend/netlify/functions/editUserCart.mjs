@@ -1,5 +1,5 @@
 
-import { API_PRODUCTS_FILE_LOCATION } from '../../../frontend/src/app/app.apiRoutes.js'
+import {API_USER_CART_LOCATION} from '../../../frontend/src/app/app.apiRoutes.js'
 const fs = require('node:fs/promises');
 
 

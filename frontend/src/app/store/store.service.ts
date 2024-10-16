@@ -64,46 +64,53 @@ export class StoreService {
     const preCart = this.userCart(); // Store current state of the cart
 
     const productAlreadyExists = preCart.some(p => p.id === product.id);
+    let updatedCart;
+
     if (!productAlreadyExists) {
-      this.userCart.update(prevProducts => [...prevProducts, product]);
+      updatedCart = [...preCart, product];
     } else {
-      this.userCart.update(prevProducts => {
-        return prevProducts.map(p => p.id === product.id ? { ...p,
-          details: {
-            ...p.details,
-            colors: product.details.colors,
-            isUpdate: product.isUpdate,
-          },amount: product.amount } : p);
-      });
+      updatedCart = preCart.map(p => p.id === product.id ? {
+        ...p,
+        details: {
+          ...p.details,
+          colors: product.details.colors,
+          isUpdate: product.isUpdate
+        },
+        // Conditional logic for amount
+        amount: product.isUpdate ? product.amount : p.amount + product.amount // Increment or replace
+      } : p);
     }
 
+    // Update the cart with the new state
+    this.userCart.set(updatedCart);
     this.calculateCartTotal(); // Recalculate the total
 
     // If Netlify is true, save to localStorage and stop further execution
     if (isNetlify) {
-      const updatedCart = this.userCart();  // Get the updated cart
-      localStorage.setItem('userCart', JSON.stringify(updatedCart));
+      localStorage.setItem('userCart', JSON.stringify(updatedCart)); // Use updated cart
       return EMPTY; // returning empty observable to signify no further action
     }
 
     // For local development and non-Netlify environments, proceed with the HTTP request
-    console.log(preCart.find(p => p.id === product.id)?.amount);
-    console.log(product.amount);
-    console.log((preCart.find(p => p.id === product.id)?.amount || 0 ) + product.amount);
     return this.httpClient.put<{ userProducts: Product[] }>(API_EDIT_USER_CART_PATH, {
       productId: product.id,
-      amount: product.amount,
+      amount: product.isUpdate ? product.amount : (preCart.find(p => p.id === product.id)?.amount || 0) + product.amount,
       chosenColors: product.details.colors,
       isUpdate: product.isUpdate,
     })
       .pipe(
+        tap((response) => {
+          // Store updated user products in local storage if response is successful
+          localStorage.setItem('userCart', JSON.stringify(response.userProducts));
+          this.userCart.set(response.userProducts); // Update the cart state
+        }),
         catchError(err => {
-          console.error(err);
           this.userCart.set(preCart);  // Revert to previous state on error
           return throwError(() => new Error('Failed to add selected product to the cart.'));
         })
       );
   }
+
 
 
 
