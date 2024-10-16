@@ -4,8 +4,8 @@ const fs = require('node:fs/promises');
 
 export async function handler(event, context) {
     try {
-        // Destructure productId, amount, and chosenColors from the request body
-        const { productId, amount, chosenColors } = JSON.parse(event.body);
+        // Destructure productId, amount, chosenColors, and isUpdate flag from the request body
+        const { productId, amount, chosenColors, isUpdate } = JSON.parse(event.body);
 
         // Validate amount
         if (!amount || amount <= 0) {
@@ -28,17 +28,20 @@ export async function handler(event, context) {
             };
         }
 
-        // Read user cart data from a temporary file
-        const tempUserCartPath = '/tmp/user-cart.json';
+        // Define the path for the user cart file
+        const tempUserCartPath = API_USER_CART_LOCATION;
 
+        // Initialize userProductsData as an empty array if the file doesn't exist
         let userProductsData = [];
         try {
             const userProductsFileContent = await fs.readFile(tempUserCartPath);
             userProductsData = JSON.parse(userProductsFileContent);
         } catch (error) {
-            // If the file doesn't exist, initialize with an empty array
-            if (error.code !== 'ENOENT') {
-                throw error; // Re-throw unexpected errors
+            if (error.code === 'ENOENT') {
+                console.log('User cart file does not exist, creating a new one.');
+                await fs.writeFile(tempUserCartPath, JSON.stringify([]));
+            } else {
+                throw error;
             }
         }
 
@@ -47,17 +50,41 @@ export async function handler(event, context) {
         const existingProductIndex = userProductsData.findIndex((p) => p.id === product.id);
 
         if (existingProductIndex !== -1) {
-            // If it exists, update the amount and chosenColors
+            // If the product exists
             const existingProduct = userProductsData[existingProductIndex];
             updatedUserProducts = [...userProductsData];
-            updatedUserProducts[existingProductIndex] = {
-                ...existingProduct,
-                amount: +amount, // Set the new amount
-                details: { ...existingProduct.details, colors: chosenColors }, // Update chosen colors
-            };
+
+            if (!isUpdate) {
+                // If it's an update from the cart, set the new amount directly
+                updatedUserProducts[existingProductIndex] = {
+                    ...existingProduct,
+                    amount: +amount,  // Set the new amount directly
+                    details: {
+                        ...existingProduct.details,
+                        colors: chosenColors,  // Update the colors
+                    },
+                };
+            } else {
+                // If it's an add action from the store, increment the amount
+                updatedUserProducts[existingProductIndex] = {
+                    ...existingProduct,
+                    amount: existingProduct.amount + +amount,  // Increment the amount
+                    details: {
+                        ...existingProduct.details,
+                        colors: chosenColors,  // Update the colors
+                    },
+                };
+            }
         } else {
-            // If it doesn't exist, add the product with the given amount and chosen colors
-            updatedUserProducts = [...userProductsData, { ...product, amount, details: { colors: chosenColors } }];
+            // If the product doesn't exist, add it with the full details and amount
+            updatedUserProducts = [...userProductsData, {
+                ...product,
+                amount,
+                details: {
+                    ...product.details,
+                    colors: chosenColors,  // Include the chosen colors
+                }
+            }];
         }
 
         // Write the updated user products back to the temporary file
@@ -80,3 +107,5 @@ export async function handler(event, context) {
         };
     }
 }
+
+

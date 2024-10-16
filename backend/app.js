@@ -11,10 +11,9 @@ app.use(bodyParser.json());
 // CORS
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*"); // allow all domains
-  res.setHeader("Access-Control-Allow-Methods", "GET, PUT, DELETE, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
 
@@ -63,6 +62,7 @@ app.delete("/user-cart/:id", async (req, res) => {
 
   res.status(200).json({ message: "Product removed", userCart: updatedCart });
 });
+
 app.delete("/user-cart", async (req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "DELETE");
   try {
@@ -83,7 +83,7 @@ app.get("/user-cart", async (req, res) => {
 });
 
 app.put("/user-cart", async (req, res) => {
-  const { productId, amount, chosenColors } = req.body;
+  const { productId, amount, chosenColors, isUpdate } = req.body;
 
   if (!amount || amount <= 0) {
     return res.status(400).json({ error: "Invalid amount." });
@@ -103,24 +103,29 @@ app.put("/user-cart", async (req, res) => {
   // Check if the product already exists in the cart
   let updatedUserProducts = userProductsData.map((p) => {
     if (p.id === product.id) {
-      return { ...p, details: {...p.details, colors: chosenColors },amount: +amount };  // Add the new amount to the existing amount
+      return {
+        ...p,
+        amount: !isUpdate ? +amount : p.amount + +amount,  // Update or increment the amount based on `isUpdate`
+        details: {
+          ...p.details,
+          colors: chosenColors,  // Update colors
+        },
+      };
     }
     return p;
   });
 
   // If the product doesn't exist in the cart, add it with the specified amount
   if (!userProductsData.some((p) => p.id === product.id)) {
-    updatedUserProducts = [...userProductsData, { ...product, amount }];
+    updatedUserProducts = [...userProductsData, { ...product, amount: +amount }];
   }
 
   // Write the updated user products back to the file
-  await fs.writeFile(
-      "./data/user-cart.json",
-      JSON.stringify(updatedUserProducts)
-  );
+  await fs.writeFile("./data/user-cart.json", JSON.stringify(updatedUserProducts));
 
   res.status(200).json({ userProducts: updatedUserProducts });
 });
+
 
 
 // 404

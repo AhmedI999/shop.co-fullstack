@@ -75,8 +75,8 @@ export class StoreItemPageCardComponent implements OnInit{
         colors:[this.selectedColor()!]
       },
       amount: this.quantity() || 0,
+      isUpdate: true,
     }
-    console.log(`Object before saving to DB -> ${userProduct.details.colors}`);
     // saving item to cart
     this.isAdding = signal(true);
     const addingToCartSubscription = this.storeService.addProductToUserCart(userProduct)

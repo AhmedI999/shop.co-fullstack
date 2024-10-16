@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Product} from './store.model';
 import {catchError, map, tap, throwError} from 'rxjs';
 import {
+  API_DELETE_USER_CART_PATH,
   API_DELETE_USER_PRODUCT_PATH,
   API_EDIT_USER_CART_PATH, API_GET_PRODUCT_PATH,
   API_GET_PRODUCTS_PATH,
@@ -59,6 +60,7 @@ export class StoreService {
           details: {
             ...p.details,
             colors: product.details.colors,
+            isUpdate: product.isUpdate
           },amount: product.amount } : p);
       });
     }
@@ -66,7 +68,8 @@ export class StoreService {
     return this.httpClient.put(API_EDIT_USER_CART_PATH, {
       productId: product.id,
       amount: product.amount,  // <-- Include amount here
-      chosenColors: product.details.colors
+      chosenColors: product.details.colors,
+      isUpdate: product.isUpdate,
     })
       .pipe(
         catchError(err => {
@@ -99,7 +102,7 @@ export class StoreService {
   }
 
   clearUserCart() {
-    return this.httpClient.delete<{ message: string }>(API_DELETE_USER_PRODUCT_PATH)
+    return this.httpClient.delete<{ message: string }>(API_DELETE_USER_CART_PATH)
       .pipe(
         catchError(err => {
           console.error('Failed to clear cart:', err);

@@ -9,7 +9,9 @@
     <div class="col-10 offset-1 offset-md-0 col-md-6 col-lg-7 d-flex flex-column gap-3 rounded-1 p-4 mt-5 mb-7 scrollable-container"
          style="border: 1px solid rgba(0, 0, 0, 0.10);"
     >
-      @if (userCart().length > 0){
+      @if (isFetching()) {
+        <h2 class="cart-empty__title">Retrieving your cart...</h2>
+      } @else if (userCart().length > 0){
         @for (item of userCart(); track item.id){
           <app-cart-item [cartItem]="item" (onDeleteItem)="onItemDeleted($event)"/>
         }

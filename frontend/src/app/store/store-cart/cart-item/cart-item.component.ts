@@ -33,6 +33,7 @@ export class CartItemComponent implements OnInit{
     this.storeService.addProductToUserCart({
       ...this.cartItem(),
       amount: this.itemAmount(),
+      isUpdate: false
     }).subscribe();
   }
 
@@ -41,6 +42,7 @@ export class CartItemComponent implements OnInit{
     this.storeService.addProductToUserCart({
       ...this.cartItem(),
       amount: this.itemAmount(),
+      isUpdate: false
     }).subscribe();
   }
 

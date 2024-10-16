@@ -1,46 +1,45 @@
-import { API_PRODUCTS_FILE_LOCATION } from '../../../frontend/src/app/app.apiRoutes.js'
+import {API_USER_CART_LOCATION} from '../../../frontend/src/app/app.apiRoutes.js'
 const fs = require('node:fs/promises');
 
 export async function handler(event, context) {
-    // Extract the product ID from the request parameters
-    const productId = event.path.split('/').pop(); // Get the last part of the URL as the productId
+    try {
+        // Extract the product ID from the URL path
+        const productId = event.path.split('/').pop();
 
-    // Read the user cart data
-    const userProductsFileContent = await fs.readFile(API_PRODUCTS_FILE_LOCATION);
-    const userProductsData = JSON.parse(userProductsFileContent);
+        // Read the user cart data from the file
+        const userCartFileContent = await fs.readFile(API_USER_CART_LOCATION);
+        const userCartData = JSON.parse(userCartFileContent);
 
-    // Find the index of the product to delete
-    const productIndex = userProductsData.findIndex((product) => product.id === productId);
+        // Filter out the product to be deleted
+        const updatedCart = userCartData.filter(p => p.id !== productId);
 
-    // If the product is found, remove it from the array
-    if (productIndex >= 0) {
-        userProductsData.splice(productIndex, 1); // Remove the product
-    } else {
-        // Return a 404 response if the product is not found
+        // If no changes were made (product not found), return an error
+        if (userCartData.length === updatedCart.length) {
+            return {
+                statusCode: 404,
+                body: JSON.stringify({ message: "Product not found in cart" })
+            };
+        }
+
+        // Write the updated cart back to the file
+        await fs.writeFile(API_USER_CART_LOCATION, JSON.stringify(updatedCart));
+
+        // Return the updated cart
         return {
-            statusCode: 404,
+            statusCode: 200,
             headers: {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, PUT, DELETE',
+                'Access-Control-Allow-Methods': 'DELETE',
                 'Access-Control-Allow-Headers': 'Content-Type',
             },
-            body: JSON.stringify({ message: "Product not found in cart." }),
+            body: JSON.stringify({ message: "Product removed", userCart: updatedCart })
+        };
+
+    } catch (error) {
+        console.error("Error removing product:", error);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: "Internal Server Error" })
         };
     }
-
-    // Write the updated user products back to the file
-    await fs.writeFile(
-        API_USER_CART_FILE_LOCATION,
-        JSON.stringify(userProductsData)
-    );
-
-    return {
-        statusCode: 200,
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, PUT, DELETE',
-            'Access-Control-Allow-Headers': 'Content-Type',
-        },
-        body: JSON.stringify({ message: "Product removed successfully", userProducts: userProductsData }),
-    };
 }

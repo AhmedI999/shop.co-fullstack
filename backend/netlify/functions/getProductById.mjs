@@ -1,5 +1,5 @@
 const fs = require('node:fs/promises');
-import { API_PRODUCTS_FILE_LOCATION } from '../../../frontend/src/app/app.apiRoutes.js'
+import {API_PRODUCTS_FILE_LOCATION, API_USER_CART_LOCATION} from '../../../frontend/src/app/app.apiRoutes.js'
 
 export async function handler(event, context) {
     await new Promise((resolve) => setTimeout(resolve, 3000));

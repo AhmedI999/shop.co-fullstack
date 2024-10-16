@@ -12,4 +12,5 @@ export interface Product {
     colors: string[]
   };
   amount: number;
+  isUpdate: boolean
 }

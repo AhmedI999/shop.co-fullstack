@@ -1,12 +1,11 @@
-const fs = require('node:fs/promises');
+import {API_USER_CART_LOCATION} from "../../../frontend/src/app/app.apiRoutes.js";
 
-// Path to the temporary user cart file
-const tempUserCartPath = '/tmp/user-cart.json';
+const fs = require('node:fs/promises');
 
 export async function handler(event, context) {
     try {
         // Attempt to read the user cart data from the temporary file
-        const fileContent = await fs.readFile(tempUserCartPath, 'utf-8');
+        const fileContent = await fs.readFile(API_USER_CART_LOCATION, 'utf-8');
         const userCart = JSON.parse(fileContent);
 
         return {
