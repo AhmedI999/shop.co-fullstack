@@ -1,7 +1,7 @@
 import {Component, effect, inject, input, OnInit, output, signal} from '@angular/core';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {faMinus, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
-import {API_IMAGE_PATH} from '../../../app.apiRoutes';
+import {API_IMAGE_PATH, isHostNetlify} from '../../../app.apiRoutes';
 import {Product} from '../../store.model';
 import {StoreService} from '../../store.service';
 
@@ -34,7 +34,7 @@ export class CartItemComponent implements OnInit{
       ...this.cartItem(),
       amount: this.itemAmount(),
       isUpdate: false
-    }).subscribe();
+    }, isHostNetlify()).subscribe();
   }
 
   onPlusCLicked() {

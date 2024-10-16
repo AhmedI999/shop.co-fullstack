@@ -1,3 +1,9 @@
+// UTILS
+export const isHostNetlify = (): boolean => {
+  return window.location.hostname === 'shopco-fs-webmasters.netlify.app';
+};
+
+
 // For netlify development
 /*
 export const API_GET_PRODUCTS_PATH
@@ -69,8 +75,6 @@ export const API_USER_CART_LOCATION
 
 export const API_IMAGES_LOCATION
   = '/var/task/backend/images';
-
-
 
 
 // for node.js ( launching frontend's and backend's package.json )

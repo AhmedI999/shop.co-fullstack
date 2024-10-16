@@ -1,25 +1,21 @@
-import {API_USER_CART_LOCATION} from "../../../frontend/src/app/app.apiRoutes.js";
 
 const fs = require('node:fs/promises');
 
 export async function handler(event, context) {
     try {
-        let userCart = [];
+        // Simulate reading from local storage
+        // This assumes the user cart data is sent from the frontend as part of the request
+        const userCart = event.headers['user-cart'];  // This could be set in the frontend
 
-        try {
-            // Check if the file exists, and then read it
-            const fileContent = await fs.readFile(API_USER_CART_LOCATION, 'utf-8');
-            userCart = JSON.parse(fileContent);
-        } catch (error) {
-            if (error.code === 'ENOENT') {
-                // The file doesn't exist, so return an empty cart.
-                // This could be the first time the user accesses the cart.
-                console.log('User cart file not found. Returning an empty cart.');
-            } else {
-                // For any other error, throw the error so it can be handled by the catch block
-                throw error;
-            }
+        if (!userCart) {
+            return {
+                statusCode: 404,
+                body: JSON.stringify({ error: 'User cart not found.' }),
+            };
         }
+
+        // Parse the userCart data
+        const parsedUserCart = JSON.parse(userCart);
 
         return {
             statusCode: 200,
@@ -28,10 +24,10 @@ export async function handler(event, context) {
                 'Access-Control-Allow-Methods': 'GET, PUT, DELETE',
                 'Access-Control-Allow-Headers': 'Content-Type',
             },
-            body: JSON.stringify({ products: userCart }),
+            body: JSON.stringify({ products: parsedUserCart }),
         };
     } catch (error) {
-        console.error('Error reading user cart:', error);
+        console.error('Error processing user cart:', error);
 
         return {
             statusCode: 500,
@@ -39,3 +35,4 @@ export async function handler(event, context) {
         };
     }
 }
+

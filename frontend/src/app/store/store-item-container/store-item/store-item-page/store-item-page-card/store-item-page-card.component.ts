@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, s
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {faCheckCircle, faEllipsisH, faMinus, faPlus, faStar, faStarHalfAlt} from '@fortawesome/free-solid-svg-icons';
 import {Product} from '../../../../store.model';
-import {API_IMAGE_PATH} from '../../../../../app.apiRoutes';
+import {API_IMAGE_PATH, isHostNetlify} from '../../../../../app.apiRoutes';
 import {StoreService} from '../../../../store.service';
 import {NgClass} from '@angular/common';
 import {MessageAlertComponent} from '../../../../../shared/message-alert/message-alert.component';
@@ -79,7 +79,7 @@ export class StoreItemPageCardComponent implements OnInit{
     }
     // saving item to cart
     this.isAdding = signal(true);
-    const addingToCartSubscription = this.storeService.addProductToUserCart(userProduct)
+    const addingToCartSubscription = this.storeService.addProductToUserCart(userProduct, isHostNetlify())
       .subscribe({
         next: value => console.log(value),
         complete: () => {
