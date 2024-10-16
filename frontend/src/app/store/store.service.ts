@@ -67,18 +67,6 @@ export class StoreService {
     if (!productAlreadyExists) {
       this.userCart.update(prevProducts => [...prevProducts, product]);
     } else {
-      if (isNetlify) {
-        this.userCart.update(prevProducts => {
-          return prevProducts.map(p => p.id === product.id ? { ...p,
-            details: {
-              ...p.details,
-              colors: product.details.colors,
-              isUpdate: product.isUpdate,
-            },
-            amount: !product.isUpdate ? product.amount : (preCart.find(p => p.id === product.id)?.amount || 0) + product.amount, }
-            : p);
-        });
-      } else {
         this.userCart.update(prevProducts => {
           return prevProducts.map(p => p.id === product.id ? { ...p,
             details: {
@@ -88,13 +76,13 @@ export class StoreService {
             },amount: product.amount } : p);
         });
       }
-    }
 
     this.calculateCartTotal(); // Recalculate the total
 
     // If Netlify is true, save to localStorage and stop further execution
     if (isNetlify) {
       const updatedCart = this.userCart();  // Get the updated cart
+
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
       return EMPTY; // returning empty observable to signify no further action
     }
