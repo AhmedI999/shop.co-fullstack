@@ -77,8 +77,8 @@ export class StoreService {
             // Calculate the new amount
             let newAmount = 0;
             if (isNetlify) {
-              // For Netlify, use isUpdate to determine if the amount should replace or add
-              newAmount = product.isUpdate ? product.amount : p.amount + product.amount;
+              // For Netlify, using isUpdate to determine if the amount should replace or add
+              newAmount = !product.isUpdate ? product.amount : p.amount + product.amount;
               console.log(`Netlify New amount: ${newAmount}`);
             } else {
               // For local, simply update the amount directly as per product data
