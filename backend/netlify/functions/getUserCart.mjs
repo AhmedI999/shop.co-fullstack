@@ -4,17 +4,19 @@ const fs = require('node:fs/promises');
 
 export async function handler(event, context) {
     try {
-        // Attempt to read the user cart data from the temporary file
         let userCart = [];
+
         try {
+            // Check if the file exists, and then read it
             const fileContent = await fs.readFile(API_USER_CART_LOCATION, 'utf-8');
             userCart = JSON.parse(fileContent);
         } catch (error) {
             if (error.code === 'ENOENT') {
-                // Handle case where the cart file doesn't exist
+                // The file doesn't exist, so return an empty cart.
+                // This could be the first time the user accesses the cart.
                 console.log('User cart file not found. Returning an empty cart.');
             } else {
-                // Throw other unexpected errors
+                // For any other error, throw the error so it can be handled by the catch block
                 throw error;
             }
         }
