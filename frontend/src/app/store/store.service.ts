@@ -81,20 +81,16 @@ export class StoreService {
 
     // If Netlify is true, save to localStorage and stop further execution
     if (isNetlify) {
-      const preCart = this.userCart();  // Get the updated cart
-      const addedProduct = preCart.find(p => p.id === product.id);
-      if (addedProduct) {
-        addedProduct.amount = addedProduct?.isUpdate ? ( addedProduct?.amount || 0 ) + addedProduct.amount : addedProduct!.amount;
-      }
-      const updatedCart = {...preCart, addedProduct}
+      const updatedCart = this.userCart();  // Get the updated cart
+      console.log('Updated cart:', this.userCart());
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
       return EMPTY; // returning empty observable to signify no further action
     }
 
     // For local development and non-Netlify environments, proceed with the HTTP request
-    console.log(preCart.find(p => p.id === product.id)?.amount);
-    console.log(product.amount);
-    console.log((preCart.find(p => p.id === product.id)?.amount || 0 ) + product.amount);
+    //   console.log(preCart.find(p => p.id === product.id)?.amount);
+    //   console.log(product.amount);
+    //   console.log((preCart.find(p => p.id === product.id)?.amount || 0 ) + product.amount);
     return this.httpClient.put<{ userProducts: Product[] }>(API_EDIT_USER_CART_PATH, {
       productId: product.id,
       amount: product.amount,
