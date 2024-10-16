@@ -9,6 +9,7 @@ import {NewsLetterComponent} from '../../shared/news-letter/news-letter.componen
 import {StoreService} from '../store.service';
 import {Product} from '../store.model';
 import {RouterLink} from '@angular/router';
+import {isHostNetlify} from '../../app.apiRoutes';
 
 @Component({
   selector: 'app-store-cart',
@@ -35,7 +36,7 @@ export class StoreCartComponent implements OnInit{
 
   ngOnInit(): void {
     this.isFetching.set(true);
-    const cartItemsSubscription = this.storeService.loadUserCart()
+    const cartItemsSubscription = this.storeService.loadUserCart(isHostNetlify())
       .subscribe({
         next: item => {
           this.userCart.set(item);

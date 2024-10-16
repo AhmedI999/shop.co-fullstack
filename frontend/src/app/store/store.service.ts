@@ -9,6 +9,7 @@ import {
   API_GET_PRODUCTS_PATH,
   API_GET_USER_CART_PATH
 } from '../app.apiRoutes';
+import {popper} from '@popperjs/core';
 
 @Injectable({
   providedIn: 'root'
@@ -36,13 +37,15 @@ export class StoreService {
   );
   }
 
-  loadUserCart() {
-    const cartFromLocalStorage = localStorage.getItem('userCart');
-    if (cartFromLocalStorage) {
-      const parsedCart = JSON.parse(cartFromLocalStorage);
-      this.userCart.set(parsedCart);
-      this.calculateCartTotal();
-      return of(parsedCart);  // Simulate rxjs observable
+  loadUserCart(isNetlify: boolean = false) {
+    if (isNetlify) {
+      const cartFromLocalStorage = localStorage.getItem('userCart');
+      if (cartFromLocalStorage) {
+        const parsedCart = JSON.parse(cartFromLocalStorage);
+        this.userCart.set(parsedCart);
+        this.calculateCartTotal();
+        return of(parsedCart);  // Simulate rxjs observable
+      }
     }
 
     // Fallback to HTTP request for non-Netlify environments
@@ -58,56 +61,51 @@ export class StoreService {
 
 
   addProductToUserCart(product: Product, isNetlify: boolean = false) {
-    const preCart = this.userCart();
+    const preCart = this.userCart(); // Store current state of the cart
 
     const productAlreadyExists = preCart.some(p => p.id === product.id);
     if (!productAlreadyExists) {
       this.userCart.update(prevProducts => [...prevProducts, product]);
-    }
-    if (productAlreadyExists) {
+    } else {
       this.userCart.update(prevProducts => {
-        return prevProducts.map(p => p.id === product.id ? {
-          ...p,
+        return prevProducts.map(p => p.id === product.id ? { ...p,
           details: {
             ...p.details,
             colors: product.details.colors,
-            isUpdate: product.isUpdate
-          },
-          amount: product.amount
-        } : p);
+            isUpdate: product.isUpdate,
+          },amount: product.amount } : p);
       });
     }
-    this.calculateCartTotal();
+
+    this.calculateCartTotal(); // Recalculate the total
 
     // If Netlify is true, save to localStorage and stop further execution
     if (isNetlify) {
       const updatedCart = this.userCart();  // Get the updated cart
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
-
-      return EMPTY; // returning empty observable
+      return EMPTY; // returning empty observable to signify no further action
     }
 
     // For local development and non-Netlify environments, proceed with the HTTP request
+    console.log(preCart.find(p => p.id === product.id)?.amount);
+    console.log(product.amount);
+    console.log((preCart.find(p => p.id === product.id)?.amount || 0 ) + product.amount);
     return this.httpClient.put<{ userProducts: Product[] }>(API_EDIT_USER_CART_PATH, {
       productId: product.id,
-      amount: product.amount,  // <-- Include amount here
+      amount: product.amount,
       chosenColors: product.details.colors,
       isUpdate: product.isUpdate,
     })
       .pipe(
-        tap((response) => {
-          if (isNetlify) {
-            // Store updated user products in local storage
-            localStorage.setItem('userCart', JSON.stringify(response.userProducts));
-            this.userCart.set(response.userProducts);
-          }
-        }),
         catchError(err => {
+          console.error(err);
           this.userCart.set(preCart);  // Revert to previous state on error
           return throwError(() => new Error('Failed to add selected product to the cart.'));
         })
       );
   }
+
+
 
 
   removeUserProduct(product: Product) {
