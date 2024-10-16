@@ -39,7 +39,7 @@ export const API_IMAGES_LOCATION
 
 
 // For netlify production
-/*
+
 export const API_GET_PRODUCTS_PATH
   = '/.netlify/functions/getProducts';
 
@@ -69,7 +69,7 @@ export const API_USER_CART_LOCATION
 
 export const API_IMAGES_LOCATION
   = '/var/task/backend/images';
-*/
+
 
 
 
