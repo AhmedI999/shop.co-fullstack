@@ -9,7 +9,7 @@ import {
   API_GET_PRODUCTS_PATH,
   API_GET_USER_CART_PATH, isHostNetlify
 } from '../app.apiRoutes';
-import {popper} from '@popperjs/core';
+
 
 @Injectable({
   providedIn: 'root'
@@ -79,7 +79,6 @@ export class StoreService {
             if (isHostNetlify()) {
               // For Netlify, using isUpdate to determine if the amount should replace or add
               newAmount = !product.isUpdate ? product.amount : p.amount + product.amount;
-              console.log(`Netlify New amount: ${newAmount}`);
             } else {
               // For local, simply update the amount directly as per product data
               newAmount = product.amount;
@@ -106,7 +105,6 @@ export class StoreService {
     // If Netlify, update localStorage and stop further execution
     if (isHostNetlify()) {
       const updatedCart = this.userCart();  // Get the updated cart
-      console.log('Updated cart before saving to localStorage:', updatedCart);
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
       return EMPTY; // Return empty observable to signify no further action
     } else {
@@ -139,6 +137,12 @@ export class StoreService {
       );
       this.calculateCartTotal();  // Update the total price
     }
+    // If it's a Netlify-hosted environment, update localStorage and return EMPTY
+    if (isHostNetlify()) {
+      const updatedCart = this.userCart();  // Get the updated cart
+      localStorage.setItem('userCart', JSON.stringify(updatedCart));
+      return EMPTY; // No need for further HTTP requests
+    }
     this.calculateCartTotal();
     return this.httpClient.delete<{ userCart: Product[] }>(`${API_DELETE_USER_PRODUCT_PATH}/${product.id}`)
       .pipe(
@@ -151,6 +155,13 @@ export class StoreService {
   }
 
   clearUserCart() {
+    if (isHostNetlify()) {
+      // Clear the cart locally and update localStorage
+      this.userCart.set([]);  // Set cart to an empty array
+      localStorage.setItem('userCart', JSON.stringify([]));  // Clear local storage
+      this.calculateCartTotal();  // Recalculate the total
+      return EMPTY; // No further action needed for Netlify-hosted environment
+    }
     return this.httpClient.delete<{ message: string }>(API_DELETE_USER_CART_PATH)
       .pipe(
         catchError(err => {
