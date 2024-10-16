@@ -83,6 +83,7 @@ export class StoreService {
     if (isNetlify) {
       const updatedCart = this.userCart();  // Get the updated cart
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
+
       return EMPTY; // returning empty observable
     }
 

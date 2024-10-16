@@ -5,7 +5,6 @@ const fs = require('node:fs/promises');
 
 export async function handler(event, context) {
     try {
-        // Destructure productId, amount, chosenColors, and isUpdate flag from the request body
         const { productId, amount, chosenColors, isUpdate } = JSON.parse(event.body);
 
         // Validate amount
@@ -29,19 +28,61 @@ export async function handler(event, context) {
             };
         }
 
-        // Instead of reading/writing to a user cart file, we'll prepare the response
-        const updatedUserProducts = {
-            productId,
-            amount,
-            chosenColors,
-            isUpdate,
-            details: {
-                ...product.details,
-                colors: chosenColors,
-            },
-        };
+        // Initialize userProductsData as an empty array
+        let userProductsData = [];
+        try {
+            const userProductsFileContent = await fs.readFile(API_USER_CART_LOCATION, 'utf-8');
+            userProductsData = JSON.parse(userProductsFileContent);
+        } catch (error) {
+            if (error.code === 'ENOENT') {
+                console.log('User cart file does not exist, creating a new one.');
+                await fs.writeFile(API_USER_CART_LOCATION, JSON.stringify([]));
+            } else {
+                throw error;
+            }
+        }
 
-        // Return the updated user products so that the frontend can handle local storage
+        let updatedUserProducts;
+        const existingProductIndex = userProductsData.findIndex((p) => p.id === product.id);
+
+        if (!isUpdate && existingProductIndex !== -1) {
+            // If it's an update, increase the existing amount
+            const existingProduct = userProductsData[existingProductIndex];
+            updatedUserProducts = [...userProductsData];
+            updatedUserProducts[existingProductIndex] = {
+                ...existingProduct,
+                amount: existingProduct.amount + amount, // Incrementing amount
+                details: {
+                    ...existingProduct.details,
+                    colors: chosenColors,
+                },
+            };
+        } else if (existingProductIndex === -1) {
+            // If the product doesn't exist, add it with the full details and amount
+            updatedUserProducts = [...userProductsData, {
+                ...product,
+                amount,
+                details: {
+                    ...product.details,
+                    colors: chosenColors,
+                }
+            }];
+        } else {
+            // If updating an existing product without isUpdate, just set it to the new amount
+            updatedUserProducts = [...userProductsData];
+            updatedUserProducts[existingProductIndex] = {
+                ...existingProduct,
+                amount,
+                details: {
+                    ...existingProduct.details,
+                    colors: chosenColors,
+                },
+            };
+        }
+
+        // Write the updated user products back to the file
+        await fs.writeFile(API_USER_CART_LOCATION, JSON.stringify(updatedUserProducts));
+
         return {
             statusCode: 200,
             headers: {
@@ -49,7 +90,7 @@ export async function handler(event, context) {
                 'Access-Control-Allow-Methods': 'GET, PUT, DELETE',
                 'Access-Control-Allow-Headers': 'Content-Type',
             },
-            body: JSON.stringify({ userProducts: updatedUserProducts }),  // Return updated cart
+            body: JSON.stringify({ userProducts: updatedUserProducts }),
         };
     } catch (error) {
         console.error('Error handling the request:', error);
@@ -59,6 +100,7 @@ export async function handler(event, context) {
         };
     }
 }
+
 
 
 
