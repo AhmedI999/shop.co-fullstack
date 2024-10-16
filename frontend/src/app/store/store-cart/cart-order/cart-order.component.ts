@@ -36,6 +36,7 @@ export class CartOrderComponent{
       complete: () => {
         this.isCheckedOut.set(true);
         this.onCartClear.emit();
+        this.totalAmount.set(0);
       },
     });
   }
