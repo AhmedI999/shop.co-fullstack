@@ -36,7 +36,7 @@ export class StoreCartComponent implements OnInit{
 
   ngOnInit(): void {
     this.isFetching.set(true);
-    const cartItemsSubscription = this.storeService.loadUserCart(isHostNetlify())
+    const cartItemsSubscription = this.storeService.loadUserCart()
       .subscribe({
         next: item => {
           this.userCart.set(item);
