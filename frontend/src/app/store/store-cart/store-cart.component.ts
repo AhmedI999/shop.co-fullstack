@@ -51,8 +51,8 @@ export class StoreCartComponent implements OnInit{
   }
 
   onItemDeleted(updatedCart: Product[]) {
-    this.userCart.set(updatedCart);
     console.log(updatedCart);
+    this.userCart.set(updatedCart);
   }
 
   onCartCleared() {
