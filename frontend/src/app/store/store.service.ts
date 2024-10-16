@@ -109,23 +109,23 @@ export class StoreService {
       console.log('Updated cart before saving to localStorage:', updatedCart);
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
       return EMPTY; // Return empty observable to signify no further action
+    } else {
+      // For local development and non-Netlify environments
+      return this.httpClient.put<{ userProducts: Product[] }>(API_EDIT_USER_CART_PATH, {
+        productId: product.id,
+        amount: product.amount,
+        chosenColors: product.details.colors,
+        isUpdate: product.isUpdate,
+      })
+        .pipe(
+          catchError(err => {
+            console.error('Error in addProductToUserCart:', err);
+            // If the request fails, revert cart to the previous state
+            this.userCart.set(preCart);
+            return throwError(() => new Error('Failed to add selected product to the cart.'));
+          })
+        );
     }
-
-    // For local development and non-Netlify environments, proceed with the HTTP request
-    return this.httpClient.put<{ userProducts: Product[] }>(API_EDIT_USER_CART_PATH, {
-      productId: product.id,
-      amount: product.amount,
-      chosenColors: product.details.colors,
-      isUpdate: product.isUpdate,
-    })
-      .pipe(
-        catchError(err => {
-          console.error('Error in addProductToUserCart:', err);
-          // If the request fails, revert cart to the previous state
-          this.userCart.set(preCart);
-          return throwError(() => new Error('Failed to add selected product to the cart.'));
-        })
-      );
   }
 
   removeUserProduct(product: Product) {
