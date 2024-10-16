@@ -39,6 +39,7 @@ export class StoreService {
 
   loadUserCart(isNetlify: boolean = false) {
     if (isNetlify) {
+      console.log(isNetlify);
       const cartFromLocalStorage = localStorage.getItem('userCart');
       if (cartFromLocalStorage) {
         const parsedCart = JSON.parse(cartFromLocalStorage);
