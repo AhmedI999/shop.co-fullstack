@@ -65,7 +65,7 @@ export const API_PRODUCTS_FILE_LOCATION
   = '/var/task/backend/data/products.json';
 
 export const API_USER_CART_LOCATION
-  = '/tmp/user-cart.json';
+  = 'tmp/user-cart.json';
 
 export const API_IMAGES_LOCATION
   = '/var/task/backend/images';
