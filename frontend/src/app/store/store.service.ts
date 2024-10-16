@@ -141,17 +141,19 @@ export class StoreService {
     if (isHostNetlify()) {
       const updatedCart = this.userCart();  // Get the updated cart
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
+      this.calculateCartTotal();
       return EMPTY; // No need for further HTTP requests
+    } else {
+      this.calculateCartTotal();
+      return this.httpClient.delete<{ userCart: Product[] }>(`${API_DELETE_USER_PRODUCT_PATH}/${product.id}`)
+        .pipe(
+          catchError(err => {
+            // On error, revert to the previous cart state
+            this.userCart.set(prevCart);
+            return throwError(() => new Error('Failed to delete the product.'));
+          })
+        );
     }
-    this.calculateCartTotal();
-    return this.httpClient.delete<{ userCart: Product[] }>(`${API_DELETE_USER_PRODUCT_PATH}/${product.id}`)
-      .pipe(
-        catchError(err => {
-          // On error, revert to the previous cart state
-          this.userCart.set(prevCart);
-          return throwError(() => new Error('Failed to delete the product.'));
-        })
-      );
   }
 
   clearUserCart() {
