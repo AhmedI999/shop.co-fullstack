@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
-import {faEnvelope, faHome, faPhone, faPrint, faTruck, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faPhone, faPrint, faTruck, faUser} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-footer',

@@ -5,9 +5,9 @@
   --color-white: #FFFFFF;
   --color-red: red;
   // for all pages
-  --pages-color-primary: #d0ebff !important;
-  --pages-color-secondary: #e7f5ff !important;
-  --pages-color-tertiary: #fff5f5 !important;
+  --pages-color-primary: #fdfeff !important;
+  --pages-color-secondary: #fdfeff !important;
+  --pages-color-tertiary: #e9ecef !important;
   // message component
   --message-alert-success-color: #28a745;
   --message-alert-fail-color: #dc3545;
@@ -15,10 +15,12 @@
   --inputs-background-color: #F0F0F0;
   // cart and card components
   --cart-quantity-selector-bg-color: #d1d1d1;
+  --cart-item-bg-color: #f8f9fa;
+  --cart-order-bg-color: #f8f9fa;
   --cart-empty-state-title-color: #09474e;
   --cart-empty-state-paragraph-color: #333333;
   // paginator
-  --paginator-bg-color: #edf2ff;
+  --paginator-bg-color: #ffff;
 
   // page not found component
   --page-not-found-bg-color: #868e96;
@@ -62,8 +64,8 @@ body {
 }
 /* GLOBAL STYLES FOR NAVIGATION */
 .navbar {
-  background-color: var(--pages-color-primary);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: var(--pages-color-secondary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2), 0 .5px 3px rgba(0, 0, 0, 0.2);
 }
 .navbar-nav {
   font-size: 1.75rem;
