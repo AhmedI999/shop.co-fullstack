@@ -1,11 +1,12 @@
+
 /* Card Container */
 .d-flex.flex-column {
-  background: #f0efed;
+  background: var(--pages-color-tertiary);
   border: 2px solid rgba(0, 0, 0, 0.1); /* Light border for better visibility */
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.1);
   max-width: 350px;
   margin: 0 auto;
 }
@@ -23,14 +24,15 @@
   transition: transform 0.4s ease-in-out;
 }
 
-.d-flex.flex-column:hover .img-fluid {
+.d-flex.flex-column:hover {
   transform: scale(1.05);
 }
 
 /* Details Section */
 .details {
-  padding: 20px;
+  padding: 10px;
   text-align: center;
+  background-color: var(--pages-color-tertiary);
 }
 
 .details h3 {
@@ -47,7 +49,7 @@
 }
 
 .details .rating .badge:hover {
-  background-color: #ffc107;
+  background-color: #ffc107
 }
 .rating-full {
   font-size: 1.4rem;
@@ -55,7 +57,6 @@
 /* Price and Description */
 .price-quantity {
   text-align: start;
-
 }
 .price-quantity h2 {
   font-size: 1.8rem;

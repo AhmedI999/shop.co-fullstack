@@ -1,43 +1,45 @@
 <app-nav [isLandingPage]="false"/>
-<app-horizontal-separator />
+
 <app-navigator currentPage="cart"/>
-
-
-<div class="container mx-auto">
-  <h1 class="cart-title">Your Cart</h1>
-  <div class="row d-flex gap-5 mb-7">
-    <div class="col-10 offset-1 offset-md-0 col-md-6 col-lg-7 d-flex flex-column gap-3 rounded-1 p-4 mt-5 mb-7 scrollable-container"
-         style="border: 1px solid rgba(0, 0, 0, 0.10);"
-    >
-      @if (!isFetching() && userCart().length === 0) {
-        <h2 class="cart-empty__title">Your Cart Is Empty</h2>
-        <p class="cart-empty__paragraph">
-          Your shopping basket lives to serve. Give it purpose – fill it with awesome clothes.
-          Continue shopping on the <a [routerLink]="['/', 'store']">store</a>, learn about Today's Deals.
-        </p>
-      }
-      @if (isFetching()) {
-        <h2 class="cart-empty__title">Retrieving your cart...</h2>
-      }
-      @if (userCart().length > 0){
-        @for (item of userCart(); track item.id){
-          <app-cart-item [cartItem]="item" (onDeleteItem)="onItemDeleted($event)"/>
-        }
-      }
-    </div>
-    <div class="col-10 offset-1 offset-md-0 col-md-5 col-lg-4">
-      <div class="d-flex flex-column gap-3 rounded-1 p-4 mt-5 mb-7 scrollable-container"
+<app-horizontal-separator />
+<div class="container-fluid">
+  <div class="container mx-auto">
+    <h1 class="cart-title">Your Cart</h1>
+    <div class="row d-flex gap-5 mb-7">
+      <div class="col-10 offset-1 offset-md-0 col-md-6 col-lg-7 d-flex flex-column gap-3 rounded-1 p-4 mt-5 mb-7 scrollable-container"
            style="border: 1px solid rgba(0, 0, 0, 0.10);"
       >
-        <app-cart-order (onCartClear)="onCartCleared()"/>
+        @if (!isFetching() && userCart().length === 0) {
+          <h2 class="cart-empty__title">Your Cart Is Empty</h2>
+          <p class="cart-empty__paragraph">
+            Your shopping basket lives to serve. Give it purpose – fill it with awesome clothes.
+            Continue shopping on the <a [routerLink]="['/', 'store']">store</a>, learn about Today's Deals.
+          </p>
+        }
+        @if (isFetching()) {
+          <h2 class="cart-empty__title">Retrieving your cart...</h2>
+        }
+        @if (userCart().length > 0){
+          @for (item of userCart(); track item.id){
+            <app-cart-item [cartItem]="item" (onDeleteItem)="onItemDeleted($event)"/>
+          }
+        }
+      </div>
+      <div class="col-10 offset-1 offset-md-0 col-md-5 col-lg-4">
+        <div class="d-flex flex-column gap-3 rounded-1 p-4 mt-5 mb-7 scrollable-container"
+             style="border: 1px solid rgba(0, 0, 0, 0.10);"
+        >
+          <app-cart-order (onCartClear)="onCartCleared()"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-10 offset-1 mb-5">
+        <app-news-letter />
       </div>
     </div>
   </div>
 </div>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-10 offset-1 mb-5">
-      <app-news-letter />
-    </div>
-  </div>
-</div>
+

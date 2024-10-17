@@ -1,8 +1,8 @@
 /* Main container styles */
 .cart-item {
   border: none;
-  background-color: #f8f9fa;
   position: relative;
+  background-color: var(--pages-color-tertiary);
 }
 
 .product-image {
@@ -39,7 +39,7 @@
   justify-content: center;
   border-radius: 25px;
   padding: 0.5rem;
-  background-color: #d1d1d1;
+  background-color: var(--cart-quantity-selector-bg-color);
   width: fit-content;
   font-size: 1.4rem;
 }
@@ -56,7 +56,7 @@
 #delete-btn {
   background: none;
   border: none;
-  color: red;
+  color: var(--color-red);
   font-size: 2rem;
 }
 

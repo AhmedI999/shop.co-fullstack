@@ -18,13 +18,13 @@
 
 /* Styling for success messages */
 .alert-success {
-  background-color: #28a745;
+  background-color: var(--message-alert-success-color);
   color: white;
 }
 
 /* Styling for failure messages */
 .alert-danger {
-  background-color: #dc3545;
+  background-color: var(--message-alert-fail-color);
   color: white;
 }
 

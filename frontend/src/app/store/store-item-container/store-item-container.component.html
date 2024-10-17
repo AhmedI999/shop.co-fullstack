@@ -1,55 +1,53 @@
-<!--
-Todo Implement cart page
-Todo Add -> Add to cart btn to each card
- -->
+<div class="container-fluid">
+  <div class="container pb-4">
+    @if (isFetching() && !error()) {
+      <div class="row">
+        @for (i of [1, 2, 3, 4, 5, 6]; track $index){
+          <div class="col-12 col-md-6 col-lg-4 px-5 mb-5">
+            <div class="d-flex flex-column py-3 placeholder-container">
+              <!-- Placeholder Image Section -->
+              <div class="image-skeleton img-fluid rounded shadow">
+                <div class="image-loader"></div> <!-- Image loader animation -->
+              </div>
 
-<div class="container pb-4">
-  @if (isFetching() && !error()) {
-    <div class="row">
-      @for (i of [1, 2, 3, 4, 5, 6]; track $index){
-        <div class="col-12 col-md-6 col-lg-4 px-5 mb-5">
-          <div class="d-flex flex-column py-3 placeholder-container">
-            <!-- Placeholder Image Section -->
-            <div class="image-skeleton img-fluid rounded shadow">
-              <div class="image-loader"></div> <!-- Image loader animation -->
-            </div>
+              <!-- Placeholder Details Section -->
+              <div class="details mt-3">
+                <div class="placeholder title-placeholder"></div>
 
-            <!-- Placeholder Details Section -->
-            <div class="details mt-3">
-              <div class="placeholder title-placeholder"></div>
-
-              <!-- Placeholder for rating and price section -->
-              <div class="price-quantity mt-3">
-                <div class="placeholder rating-placeholder"></div>
-                <div class="placeholder price-placeholder"></div>
+                <!-- Placeholder for rating and price section -->
+                <div class="price-quantity mt-3">
+                  <div class="placeholder rating-placeholder"></div>
+                  <div class="placeholder price-placeholder"></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      }
-    </div>
-  }
-
-  @if (products()) {
-    <div class="mt-4">
-      <div class="row g-4 d-flex gap-5 justify-content-center align-items-center">
-        @for (product of paginatedProducts(); track product.id) {
-          <div class="col-12 col-md-5 col-lg-3">
-            <a [routerLink]="['products', product.id]" class="text-decoration-none text-dark">
-              <app-store-item [product]="product"></app-store-item>
-            </a>
-          </div>
         }
       </div>
-    </div>
-    <!-- Angular Material Paginator -->
-    <mat-paginator
-                   [pageSize]="productsPerPage"
-                   [pageIndex]="currentPage"
-                   [length]="filteredProductsLength"
-                   [pageSizeOptions]="pageSizeOptions"
-                   [showFirstLastButtons]="true"
-                   (page)="onPageChange($event)"
-    />
-  }
+    }
+
+    @if (products()) {
+      <div class="mt-4">
+        <div class="row g-4 d-flex gap-5 justify-content-center align-items-center">
+          @for (product of paginatedProducts(); track product.id) {
+            <div class="item col-12 col-md-5 col-lg-3">
+              <a [routerLink]="['products', product.id]" class="text-decoration-none text-dark">
+                <app-store-item [product]="product"></app-store-item>
+              </a>
+            </div>
+          }
+        </div>
+      </div>
+      <!-- Angular Material Paginator -->
+      <mat-paginator
+        [pageSize]="productsPerPage"
+        [pageIndex]="currentPage"
+        [length]="filteredProductsLength"
+        [pageSizeOptions]="pageSizeOptions"
+        [showFirstLastButtons]="true"
+        (page)="onPageChange($event)"
+      />
+    }
+  </div>
 </div>
+

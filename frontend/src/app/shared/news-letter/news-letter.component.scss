@@ -15,7 +15,7 @@
   position: absolute;
   top: 13%;
   left: 2%;
-  color: #333333;
+  color: var(--color-mute);
   font-size: 1.6rem;
   cursor: pointer;
 }
@@ -24,7 +24,7 @@
   font-size: 1.4rem;
 }
 .btn-subscribe:hover {
-  color: #333333;
+  color: var(--color-mute);
 }
 @media (max-width: 75em) {
   .news-letter-header {

@@ -1,47 +1,48 @@
 <app-nav [isLandingPage]="false" />
-<app-horizontal-separator />
 <app-navigator addStorePath currentPage="products"/>
-
-<div class="container my-5">
-  @if (isFetching() && !error()) {
-    <!-- Placeholder for product loading -->
-    <div class="row gap-5 d-flex justify-content-center placeholder-container">
-      <!-- Placeholder Image -->
-      <div class="col-10 col-md-6 col-lg-4">
-        <div class="image-skeleton img-fluid item-img">
-          <div class="image-loader"></div> <!-- Image loader animation -->
+<div class="container-fluid pb-5">
+  <div class="container py-5">
+    @if (isFetching() && !error()) {
+      <!-- Placeholder for product loading -->
+      <div class="row gap-5 d-flex justify-content-center placeholder-container">
+        <!-- Placeholder Image -->
+        <div class="col-10 col-md-6 col-lg-4">
+          <div class="image-skeleton img-fluid item-img">
+            <div class="image-loader"></div> <!-- Image loader animation -->
+          </div>
+        </div>
+        <!-- Placeholder for product details -->
+        <div class="product col-10 col-md-4 col-lg-4 d-flex flex-column gap-4">
+          <div class="placeholder title-placeholder"></div>
+          <div class="placeholder rating-placeholder"></div>
+          <div class="placeholder price-placeholder"></div>
+          <div class="placeholder description-placeholder"></div>
+          <div class="placeholder color-placeholder"></div>
+          <div class="placeholder quantity-placeholder"></div>
         </div>
       </div>
-      <!-- Placeholder for product details -->
-      <div class="product col-10 col-md-4 col-lg-4 d-flex flex-column gap-4">
-        <div class="placeholder title-placeholder"></div>
-        <div class="placeholder rating-placeholder"></div>
-        <div class="placeholder price-placeholder"></div>
-        <div class="placeholder description-placeholder"></div>
-        <div class="placeholder color-placeholder"></div>
-        <div class="placeholder quantity-placeholder"></div>
+
+      <!-- Placeholder for reviews loading -->
+      <div class="reviews mt-7 row">
+        <h2 class="text-center">Rating & Reviews</h2>
+        <hr style="background: rgba(0, 0, 0, 0.10);" class="mb-5 mt-2"/>
+
+        @for (i of [1,2,3,4]; track $index) {
+          <div class="review-card card p-3 col-6 mb-5">
+            <div class="placeholder review-placeholder"></div>
+          </div>
+        }
       </div>
-    </div>
+    }
+  </div>
+  @if (error()) {
+    <p class="display-1"> ERROR OCCURED</p>
+  }
 
-    <!-- Placeholder for reviews loading -->
-    <div class="reviews mt-7 row">
-      <h2 class="text-center">Rating & Reviews</h2>
-      <hr style="background: rgba(0, 0, 0, 0.10);" class="mb-5 mt-2"/>
-
-      @for (i of [1,2,3,4]; track $index) {
-        <div class="review-card card p-3 col-6 mb-5">
-          <div class="placeholder review-placeholder"></div>
-        </div>
-      }
-    </div>
+  @if (product()) {
+    <app-store-item-page-card [product]="product()!"/>
   }
 </div>
-@if (error()) {
-  <p class="display-1"> ERROR OCCURED</p>
-}
 
-@if (product()) {
-  <app-store-item-page-card [product]="product()!"/>
-}
 
 

@@ -8,7 +8,6 @@ import {RouterLink} from '@angular/router';
     RouterLink
   ],
   templateUrl: './navigator.component.html',
-  styleUrl: './navigator.component.scss'
 })
 export class NavigatorComponent {
   addStorePath = input<string>();

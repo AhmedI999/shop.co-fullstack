@@ -1,6 +1,6 @@
 :host {
-  background-color: #d0ebff;
-  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: var(--pages-color-primary);
+
 }
 .cart-icon {
   cursor: pointer;
@@ -42,6 +42,9 @@ input::placeholder {
 }
 
 @media (max-width: 36em) {
+  .navbar {
+    padding-bottom: 3.6rem;
+  }
   .navbar-brand {
     position: absolute;
     left: 8%;

@@ -27,21 +27,21 @@
   text-transform: uppercase;
   text-decoration: none;
 
-  fill: #000000;
-  color: #FFFFFF;
-  background-color: #000000;
-  border-color: #000000;
+  fill: var(--color-black);
+  color: var(--color-white);
+  background-color: var(--color-black);
+  border-color: var(--color-black);
 
   border-style: solid;
   border-width: 2px;
   border-radius: 6px;
-  box-shadow: 10px 10px 1px 0 #b62525;
+  box-shadow: 10px 10px 1px 0 var(--page-not-found-btn-shadow-color);
   padding: 16px 80px;
 }
 
 .btn-home:hover {
-  background-color: #FFD639;
-  color: #000000;
+  background-color: var(--page-not-found-btn-bg-color);
+  color: var(--color-black);
 }
 .row {
   position: relative;
@@ -68,7 +68,7 @@
   }
   .circle-1 {
     left: -5%;
-    background-color: rgba(224, 49, 49, 0.5);
+    background-color: var(--page-not-found-circle1-color);
     justify-content: flex-start;
 
     span {
@@ -87,7 +87,7 @@
 
   .circle-3 {
     right: 25%;
-    background-color: rgba(103, 65, 217, 0.5);
+    background-color: var(--page-not-found-circle3-color);
     justify-content: flex-end;
     span {
       text-wrap: wrap;

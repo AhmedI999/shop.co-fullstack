@@ -1,6 +1,6 @@
 .cart-title {
-  color: #000;
-  margin-top: 2rem;
+  color: var(--color-black);
+  padding-top: 2rem;
   font-size: 4rem;
   font-weight: 700;
 }
@@ -24,11 +24,11 @@
 .cart-empty__title{
   font-size: 2.4rem;
   font-weight: 700;
-  color: #09474e;
+  color: var(--cart-empty-state-title-color);
 }
 .cart-empty__paragraph{
   font-size: 1.6rem;
-  color: #333333;
+  color: var(--cart-empty-state-paragraph-color);
 }
 @media (max-width: 62.5em) {
   .scrollable-container {

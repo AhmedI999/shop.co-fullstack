@@ -1,3 +1,33 @@
+:root {
+  // general colors
+  --color-mute: #333333;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-red: red;
+  // for all pages
+  --pages-color-primary: #d0ebff !important;
+  --pages-color-secondary: #e7f5ff !important;
+  --pages-color-tertiary: #fff5f5 !important;
+  // message component
+  --message-alert-success-color: #28a745;
+  --message-alert-fail-color: #dc3545;
+  // inputs background
+  --inputs-background-color: #F0F0F0;
+  // cart and card components
+  --cart-quantity-selector-bg-color: #d1d1d1;
+  --cart-empty-state-title-color: #09474e;
+  --cart-empty-state-paragraph-color: #333333;
+  // paginator
+  --paginator-bg-color: #edf2ff;
+
+  // page not found component
+  --page-not-found-bg-color: #868e96;
+  --page-not-found-btn-shadow-color: #b62525;
+  --page-not-found-btn-bg-color: #FFD639;
+  --page-not-found-circle1-color: rgba(224, 49, 49, 0.5);
+  --page-not-found-circle3-color: rgba(103, 65, 217, 0.5);
+}
+// font
 @font-face {
   font-family: 'Inter';
   src: url('../public/assets/fonts/Inter.ttf') format('truetype');
@@ -27,10 +57,13 @@ body {
 .text-yellow {
   color: #ffc107 !important;
 }
-
+.container-fluid {
+  background-color: var(--pages-color-secondary);
+}
 /* GLOBAL STYLES FOR NAVIGATION */
 .navbar {
-  background-color: #d0ebff;
+  background-color: var(--pages-color-primary);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 .navbar-nav {
   font-size: 1.75rem;
