@@ -4,6 +4,9 @@
   justify-content: center;
   height: auto;
 }
+.nav-link {
+  font-size: 2rem;
+}
 @media(max-width: 75em) {
   .navbar-nav {
     font-size: 1.6rem;

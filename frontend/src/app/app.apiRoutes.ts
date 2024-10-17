@@ -11,7 +11,9 @@ const getApiRoute = (path: string): string => {
   }
 };
 // Exporting routes
-export const API_GET_PRODUCTS_PATH = isHostNetlify() ? '/.netlify/functions/getProducts' : getApiRoute('getProducts');
+// export const API_GET_PRODUCTS_PATH = isHostNetlify() ? '/.netlify/functions/getProducts' : getApiRoute('getProducts');
+export const API_GET_PRODUCTS_PATH
+  = '/.netlify/functions/getProducts';
 export const API_GET_PRODUCT_PATH = isHostNetlify() ? getApiRoute('getProductById') : getApiRoute('getProductById');
 export const API_GET_USER_CART_PATH = isHostNetlify() ? getApiRoute('getUserCart') : getApiRoute('user-cart');
 export const API_EDIT_USER_CART_PATH = isHostNetlify() ? getApiRoute('editUserCart') : getApiRoute('user-cart');
