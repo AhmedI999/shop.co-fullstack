@@ -1,4 +1,4 @@
-import {Component, input, OnInit, signal} from '@angular/core';
+import {Component, input, OnDestroy, OnInit, signal} from '@angular/core';
 import {NgClass} from '@angular/common';
 
 import {animate, style, transition, trigger} from '@angular/animations';
@@ -24,21 +24,33 @@ import {animate, style, transition, trigger} from '@angular/animations';
     ])
   ]
 })
-export class MessageAlertComponent implements OnInit{
+export class MessageAlertComponent implements OnInit, OnDestroy{
   message = input.required<string>();
   type = input.required<'success' | 'failure'>();
   isVisible = signal(false);
   fadeOut = signal(false);
 
+  private fadeTimeoutId: any;
+  private hideTimeoutId: any;
+
   ngOnInit(): void {
     this.isVisible.set(true);
     // Display for 2 seconds, then trigger fade-out animation
-    setTimeout(() => {
+    this.fadeTimeoutId = setTimeout(() => {
       this.fadeOut.set(true);
-      setTimeout(() => {
+      this.hideTimeoutId = setTimeout(() => {
         this.isVisible.set(false);
       }, 500); // Wait for the animation to finish before hiding
     }, 2000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.fadeTimeoutId) {
+      clearTimeout(this.fadeTimeoutId);
+    }
+    if (this.hideTimeoutId) {
+      clearTimeout(this.hideTimeoutId);
+    }
   }
 
 

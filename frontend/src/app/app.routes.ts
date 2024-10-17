@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import {LandingComponent} from './landing/landing.component';
-import {StoreComponent} from './store/store.component';
+import {PageNotFoundComponent} from './shared/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {
@@ -9,7 +9,10 @@ export const routes: Routes = [
   },
   {
     path: 'store',
-    component: StoreComponent,
     loadChildren: () => import('./store/store.routes').then(mod => mod.storeRoutes),
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
   }
 ];
