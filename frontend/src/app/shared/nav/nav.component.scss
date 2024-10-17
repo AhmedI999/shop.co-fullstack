@@ -1,3 +1,6 @@
+:host {
+  background-color: #d0ebff;
+}
 .cart-icon {
   cursor: pointer;
   font-size: 2.4rem;
@@ -16,8 +19,18 @@ input::placeholder {
   .navbar-brand {
     font-size: 2.4rem;
   }
-}
 
+}
+@media(max-width: 62em) {
+  .container {
+    position: relative;
+  }
+  .icons {
+    position: absolute;
+    right: 5%;
+    top: -10%;
+  }
+}
 @media (max-width: 48em) {
   input::placeholder {
     font-size: .9rem;
@@ -28,7 +41,31 @@ input::placeholder {
 }
 
 @media (max-width: 36em) {
+  .navbar-brand {
+    position: absolute;
+    left: 8%;
+    top: -15%;
+  }
   input::placeholder {
     font-size: .7rem;
+  }
+}
+
+@media (max-width: 25em) {
+  .navbar-brand {
+    font-size: 2rem;
+    left: 10%;
+    top: -12%;
+  }
+}
+
+@media (max-width: 19.07em) {
+  .navbar-brand {
+    left: 13%;
+  }
+}
+@media (max-width: 15em) {
+  .navbar-brand {
+    left: 15%;
   }
 }

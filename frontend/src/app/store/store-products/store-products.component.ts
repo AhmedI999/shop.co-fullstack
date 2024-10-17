@@ -24,7 +24,8 @@ import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
     NavigatorComponent,
     StoreItemComponent,
     StoreItemContainerComponent,
-    FooterComponent
+    FooterComponent,
+
   ],
   templateUrl: './store-products.component.html',
   styleUrl: './store-products.component.scss'

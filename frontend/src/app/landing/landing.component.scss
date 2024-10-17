@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: auto;
 }
 @media(max-width: 75em) {
   .navbar-nav {

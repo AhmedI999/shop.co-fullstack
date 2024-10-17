@@ -1,6 +1,6 @@
-import {Component, input, OnInit, output, viewChild} from '@angular/core';
+import {Component, input, OnInit} from '@angular/core';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
-import {faBars, faMagnifyingGlass, faShoppingCart} from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart} from '@fortawesome/free-solid-svg-icons';
 import {NgOptimizedImage} from '@angular/common';
 import {NgbCollapse} from '@ng-bootstrap/ng-bootstrap';
 import {RouterLink} from '@angular/router';
@@ -22,9 +22,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   styleUrl: './nav.component.scss',
 })
 export class NavComponent implements OnInit {
-  protected readonly faBars = faBars;
   protected readonly faShoppingCart = faShoppingCart;
-  protected readonly faMagnifyingGlass = faMagnifyingGlass;
   isNavbarCollapsed = true;
   isLandingPage = input.required<boolean>();
 

@@ -1,7 +1,7 @@
 :host {
   display: block;
   height: 73vh;
-  background-color: #F2F0F1 !important;
+  background-color: #e7f5ff !important;
 }
 
 .hero-heading {
@@ -32,17 +32,23 @@
 }
 
 @media(max-width: 62em) {
+  .container {
+    margin: 0 5rem !important;
+  }
   .hero-heading {
-    font-size: 2.4rem;
+    font-size: 2.6rem;
   }
   .hero-description {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
   }
   .shop-btn {
-    font-size: 1rem;
+    font-size: 1.4rem;
   }
   .shop-features {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
+  }
+  .hero-img {
+    max-width: 140%;
   }
 }
 
@@ -51,6 +57,24 @@
     font-size: 1.8rem;
   }
   .hero-description {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+
+  }
+}
+@media (max-width: 36em) {
+  .container{
+    margin-top: 15% !important;
+  }
+  .hero-heading {
+    font-size: 2.4rem;
+  }
+  .hero-description {
+    font-size: 1.8rem;
+  }
+  .shop-btn {
+    font-size: 1.6rem;
+  }
+  .shop-features {
+    font-size: 1.6rem;
   }
 }
