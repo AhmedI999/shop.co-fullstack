@@ -84,12 +84,20 @@ export class StoreService {
               newAmount = product.amount;
             }
 
+            // returning combined chosen colors
+            let allColors: string[];
+            const doesChosenColorExists = p.details.colors.find(c => c === product.details.colors[0]);
+            if (doesChosenColorExists) {
+              allColors = p.details.colors;
+            } else {
+              allColors = [...p.details.colors, product.details.colors[0]];
+            }
             // Return updated product with new amount and other details
             return {
               ...p,
               details: {
                 ...p.details,
-                colors: product.details.colors,
+                colors: allColors,
                 isUpdate: product.isUpdate,
               },
               amount: newAmount
@@ -101,18 +109,18 @@ export class StoreService {
     }
 
     this.calculateCartTotal(); // Recalculate the total after update
-
     // If Netlify, update localStorage and stop further execution
     if (isHostNetlify()) {
       const updatedCart = this.userCart();  // Get the updated cart
       localStorage.setItem('userCart', JSON.stringify(updatedCart));
       return EMPTY; // Return empty observable to signify no further action
     } else {
+      const itemColors = this.userCart().find(p => p.id === product.id)?.details.colors;
       // For local development and non-Netlify environments
       return this.httpClient.put<{ userProducts: Product[] }>(API_EDIT_USER_CART_PATH, {
         productId: product.id,
         amount: product.amount,
-        chosenColors: product.details.colors,
+        chosenColors: itemColors,
         isUpdate: product.isUpdate,
       })
         .pipe(
@@ -137,10 +145,7 @@ export class StoreService {
       );
       this.calculateCartTotal();  // Update the total price
 
-      // Log the updated cart
       const updatedCart = this.userCart();
-      console.log('Updated cart after removal:', updatedCart);
-
       // Handle Netlify case
       if (isHostNetlify()) {
         localStorage.setItem('userCart', JSON.stringify(updatedCart));

@@ -85,46 +85,64 @@ app.get("/user-cart", async (req, res) => {
 app.put("/user-cart", async (req, res) => {
   const { productId, amount, chosenColors, isUpdate } = req.body;
 
+  // Validate the amount
   if (!amount || amount <= 0) {
     return res.status(400).json({ error: "Invalid amount." });
   }
 
-  const fileContent = await fs.readFile("./data/products.json");
-  const productData = JSON.parse(fileContent);
+  try {
+    // Read the product data (could be necessary for product details)
+    const fileContent = await fs.readFile("./data/products.json");
+    const productData = JSON.parse(fileContent);
 
-  const product = productData.find((p) => p.id === productId);
-  if (!product) {
-    return res.status(404).json({ error: "Product not found." });
-  }
-
-  const userProductsFileContent = await fs.readFile("./data/user-cart.json");
-  const userProductsData = JSON.parse(userProductsFileContent);
-
-  // Check if the product already exists in the cart
-  let updatedUserProducts = userProductsData.map((p) => {
-    if (p.id === product.id) {
-      return {
-        ...p,
-        amount: !isUpdate ? +amount : p.amount + +amount,  // Update or increment the amount based on `isUpdate`
-        details: {
-          ...p.details,
-          colors: chosenColors,  // Update colors
-        },
-      };
+    // Find the product in the main product list
+    const product = productData.find((p) => p.id === productId);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found." });
     }
-    return p;
-  });
 
-  // If the product doesn't exist in the cart, add it with the specified amount
-  if (!userProductsData.some((p) => p.id === product.id)) {
-    updatedUserProducts = [...userProductsData, { ...product, amount: +amount }];
+    // Read the user cart data
+    const userProductsFileContent = await fs.readFile("./data/user-cart.json");
+    const userProductsData = JSON.parse(userProductsFileContent);
+
+    // Update the existing product in the user's cart
+    let updatedUserProducts = userProductsData.map((p) => {
+      if (p.id === product.id) {
+        // Merge existing colors with the new ones, ensuring unique colors
+        // const updatedColors = [...new Set([...p.details.colors, ...chosenColors])];
+        return {
+          ...p,
+          amount: !isUpdate ? +amount : p.amount + +amount,  // Update amount or increment
+          details: {
+            ...p.details,
+            colors: chosenColors,  // Use merged colors
+          },
+        };
+      }
+      return p;
+    });
+
+    // If the product doesn't exist in the cart, add it with the specified amount and details
+    if (!userProductsData.some((p) => p.id === productId)) {
+      updatedUserProducts = [
+        ...userProductsData,
+        { ...product, amount: +amount, details: { ...product.details,
+            colors: [chosenColors.at(-1)]
+        } },
+      ];
+    }
+
+    // Write the updated cart back to the file
+    await fs.writeFile("./data/user-cart.json", JSON.stringify(updatedUserProducts));
+
+    // Respond with the updated user cart
+    res.status(200).json({ userProducts: updatedUserProducts });
+  } catch (error) {
+    console.error("Error updating user cart:", error);
+    res.status(500).json({ error: "Failed to update the cart." });
   }
-
-  // Write the updated user products back to the file
-  await fs.writeFile("./data/user-cart.json", JSON.stringify(updatedUserProducts));
-
-  res.status(200).json({ userProducts: updatedUserProducts });
 });
+
 
 
 

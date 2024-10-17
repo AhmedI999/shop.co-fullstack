@@ -52,5 +52,7 @@ export class CartItemComponent implements OnInit{
       next: value => this.onDeleteItem.emit(value.userCart),
     });
   }
+
+  protected readonly console = console;
 }
 

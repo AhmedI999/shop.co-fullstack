@@ -10,7 +10,15 @@
       <div class="card-body">
         <h5 class="card-title">{{ cartItem().details.title }}</h5>
         <p class="card-text">
-          <span>Color: {{ cartItem().details.colors[0] }}</span>
+          <span>Selected Color(s):
+            @for (color of cartItem().details.colors; track $index) {
+              @if (cartItem().details.colors.at(-1) === color){
+                {{ color }}
+              } @else {
+                {{ color }},
+              }
+            }
+          </span>
         </p>
         <p class="card-text price">$ {{ cartItem().details.price }}</p>
       </div>
