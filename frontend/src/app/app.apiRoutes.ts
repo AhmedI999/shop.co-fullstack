@@ -1,9 +1,9 @@
 // UTILS
 export const isHostNetlify = (): boolean => {
   if (typeof window !== 'undefined') {
-    return window.location.hostname.includes('netlify.app');  // Runs only in browser
+    return window.location.hostname.includes('netlify.app');
   }
-  return process.env["NETLIFY_HOST"] === 'true';  // Use environment variable for server-side
+  return false;
 };
 
 const getApiRoute = (path: string): string => {

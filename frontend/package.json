@@ -36,7 +36,6 @@
     "@angular/compiler-cli": "^18.2.0",
     "@angular/localize": "^18.2.0",
     "@types/jasmine": "~5.1.0",
-    "@types/node": "^22.7.6",
     "copyfiles": "^2.4.1",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
