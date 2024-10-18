@@ -18,6 +18,7 @@ Make sure you have the following installed:
 To install all required **npm packages** for both the Node.js backend and Angular frontend, simply run:
 
 ```bash
+cd frontend
 npm install:all
 ```
 
@@ -26,6 +27,7 @@ npm install:all
 To run both the **Node.js server** and the **Angular frontend** in one go, execute:
 
 ```bash
+cd frontend
 npm start:fs
 ```
 
