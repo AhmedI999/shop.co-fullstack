@@ -1,12 +1,8 @@
-*, body, html {
-  overflow: hidden !important;
-}
-*:host {
+:host {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: auto;
-  overflow: hidden !important;
 }
 
 .nav-link {
