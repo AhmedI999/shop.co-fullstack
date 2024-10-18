@@ -46,16 +46,18 @@ $font-family-sans-serif: Inter;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  overflow-x: hidden !important;
 }
 
 html {
   font-size: 62.5%;
+  overflow-x: hidden !important;
 }
 body {
   color: #000;
   font-size: 1.6rem;
   font-weight: 400;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 .text-yellow {
   color: #ffc107 !important;

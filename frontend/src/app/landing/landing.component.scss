@@ -1,10 +1,14 @@
-:host {
+*, body, html {
+  overflow: hidden !important;
+}
+*:host {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: auto;
-  overflow: hidden;
+  overflow: hidden !important;
 }
+
 .nav-link {
   font-size: 2rem;
 }

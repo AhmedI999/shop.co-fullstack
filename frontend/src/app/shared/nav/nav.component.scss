@@ -1,6 +1,20 @@
 :host {
   background-color: var(--pages-color-primary);
 }
+.navbar-toggler {
+  border: none;
+  outline: none;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:active {
+    outline: none;
+    box-shadow: none;
+  }
+}
 .cart-icon {
   cursor: pointer;
   font-size: 2.4rem;
