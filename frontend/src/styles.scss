@@ -56,8 +56,11 @@ body {
   color: #000;
   font-size: 1.6rem;
   font-weight: 400;
+}
+app-landing, app-landing html {
   overflow: hidden !important;
 }
+
 .text-yellow {
   color: #ffc107 !important;
 }
